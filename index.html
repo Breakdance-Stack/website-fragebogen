@@ -1,0 +1,1157 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Website-Projekt Fragebogen – Professionelle Webseiten für Ihr Unternehmen</title>
+  <meta name="description" content="Professioneller Fragebogen für mittelständische Unternehmen zur Erstellung moderner Webseiten. Erfassen Sie Ihre Anforderungen und exportieren Sie alles als TXT.">
+  <meta name="keywords" content="Website Fragebogen, Webdesign, Mittelstand, Webseite erstellen, Kundenfragebogen">
+  <meta name="author" content="WebProjekt Studio">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://webprojekt-studio.github.io/website-fragebogen/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Website-Projekt Fragebogen – Professionelle Webseiten">
+  <meta property="og:description" content="Professioneller Fragebogen für mittelständische Unternehmen zur Erstellung moderner Webseiten.">
+  <meta property="og:url" content="https://webprojekt-studio.github.io/website-fragebogen/">
+  <meta property="og:image" content="https://webprojekt-studio.github.io/website-fragebogen/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="WebProjekt Studio">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Website-Projekt Fragebogen">
+  <meta name="twitter:description" content="Professioneller Fragebogen für mittelständische Unternehmen zur Erstellung moderner Webseiten.">
+  <meta name="twitter:image" content="https://webprojekt-studio.github.io/website-fragebogen/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#1e3a5f">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Website-Projekt Fragebogen",
+    "description": "Professioneller Fragebogen für mittelständische Unternehmen zur Erstellung moderner Webseiten mit TXT-Export.",
+    "url": "https://webprojekt-studio.github.io/website-fragebogen/",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "WebProjekt Studio"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Start",
+        "item": "https://webprojekt-studio.github.io/website-fragebogen/"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --line: #d8e0ee;
+      --text: #1a2433;
+      --muted: #5c6b80;
+      --primary: #1e3a5f;
+      --primary-light: #e8eef6;
+      --accent: #2563eb;
+      --accent-light: #dbeafe;
+      --ok: #16a34a;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(17,24,39,.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #f4f7fb 0%, #e8eef6 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    .hero, .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+    .hero { padding: 32px; margin: 10px 0 22px; }
+    .hero h1 { margin: 0 0 8px; font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.15; color: var(--primary); }
+    .hero p { margin: 0; color: var(--muted); }
+    .badge {
+      display: inline-block; background: var(--accent-light); color: var(--primary);
+      font-weight: 700; padding: 8px 14px; border-radius: 999px; font-size: .88rem; margin-bottom: 14px;
+    }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    button {
+      appearance: none; border: none; border-radius: 14px; padding: 14px 20px;
+      font: inherit; font-weight: 800; cursor: pointer; transition: all .15s;
+    }
+    button:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: #15304f; }
+    .btn-secondary { background: var(--primary-light); color: var(--primary); border: 1px solid #c9dafc; }
+    .btn-secondary:hover { background: #dce6f4; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+    .card { padding: 24px; }
+    .section-title { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; }
+    .num {
+      width: 36px; height: 36px; flex: 0 0 36px; border-radius: 50%;
+      display: grid; place-items: center; background: var(--accent-light); color: var(--primary); font-weight: 900; font-size: .95rem;
+    }
+    h2 { margin: 0 0 4px; font-size: 1.3rem; color: var(--primary); }
+    .sub { color: var(--muted); margin: 0; font-size: .93rem; }
+    .fields { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 900px) {
+      .fields.two { grid-template-columns: 1fr 1fr; }
+      .fields.three { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    label { display: block; font-weight: 700; margin: 0 0 6px; font-size: .95rem; }
+    .hint { display: block; color: var(--muted); font-size: .88rem; margin-top: 6px; }
+    input, textarea, select {
+      width: 100%; padding: 13px 14px; border-radius: 14px; border: 1px solid var(--line);
+      background: #fff; color: var(--text); font: inherit; outline: none; transition: border-color .15s, box-shadow .15s;
+    }
+    textarea { min-height: 100px; resize: vertical; }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--accent); box-shadow: 0 0 0 4px rgba(37,99,235,.1);
+    }
+    .specs {
+      width: 100%; border-collapse: collapse; margin-top: 12px; border: 1px solid var(--line);
+      border-radius: 16px; overflow: hidden; font-size: .92rem;
+    }
+    .specs th, .specs td { padding: 11px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .specs th { background: var(--primary-light); color: var(--primary); font-weight: 700; }
+    .note {
+      background: #f8fafc; border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; color: var(--muted); font-size: .93rem;
+    }
+    .small { font-size: .9rem; color: var(--muted); }
+
+    /* === Color Picker Section === */
+    .color-section { margin-top: 16px; }
+    .color-row {
+      display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px;
+    }
+    @media (min-width: 900px) { .color-row { grid-template-columns: 1fr 1fr 1fr; } }
+    .color-box {
+      border: 1px solid var(--line); border-radius: 18px; padding: 18px; background: #fff;
+    }
+    .color-picker-wrap {
+      display: flex; gap: 12px; align-items: center; margin-top: 10px;
+    }
+    .color-picker-wrap input[type="color"] {
+      width: 56px; height: 56px; border: 2px solid var(--line); border-radius: 14px;
+      padding: 4px; cursor: pointer; background: #fff;
+    }
+    .color-picker-wrap input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+    .color-picker-wrap input[type="color"]::-webkit-color-swatch { border: none; border-radius: 10px; }
+    .color-hex-input {
+      width: 110px !important; font-family: monospace; font-size: 1rem; text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .color-name-display {
+      font-size: .88rem; color: var(--muted); margin-top: 4px;
+    }
+
+    /* Palette Suggestions */
+    .palette-section { margin-top: 20px; }
+    .palette-section h3 { margin: 0 0 12px; font-size: 1.05rem; color: var(--primary); }
+    .palette-tabs {
+      display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px;
+    }
+    .palette-tab {
+      padding: 8px 14px; border-radius: 10px; font-size: .85rem; font-weight: 700;
+      background: var(--primary-light); color: var(--primary); border: 1px solid transparent;
+      cursor: pointer;
+    }
+    .palette-tab:hover { background: #d0ddf0; }
+    .palette-tab.active { background: var(--primary); color: #fff; }
+    .palette-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;
+    }
+    .palette-card {
+      border: 2px solid var(--line); border-radius: 16px; padding: 14px; cursor: pointer;
+      transition: all .15s; background: #fff;
+    }
+    .palette-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(37,99,235,.12); }
+    .palette-card.active { border-color: var(--accent); background: #f0f6ff; }
+    .palette-colors {
+      display: flex; gap: 0; border-radius: 10px; overflow: hidden; height: 44px; margin-bottom: 10px;
+    }
+    .palette-colors div { flex: 1; }
+    .palette-label { font-weight: 700; font-size: .88rem; }
+    .palette-desc { font-size: .82rem; color: var(--muted); margin-top: 2px; }
+
+    /* Preview */
+    .preview {
+      margin-top: 20px; border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+    }
+    .preview-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 18px; color: #fff; transition: background .3s;
+    }
+    .preview-body { padding: 20px; transition: background .3s; }
+    .preview-card {
+      background: #fff; border: 1px solid var(--line); padding: 16px; border-radius: 14px;
+    }
+    .preview-btn {
+      margin-top: 12px; display: inline-block; color: #fff; padding: 11px 18px;
+      border-radius: 12px; font-weight: 800; transition: background .3s;
+    }
+    .preview-nav {
+      display: flex; gap: 18px; font-size: .9rem; font-weight: 600;
+    }
+    .preview-nav span { opacity: .8; cursor: default; }
+    .preview-nav span:first-child { opacity: 1; }
+    .preview-footer {
+      padding: 12px 18px; color: #fff; font-size: .85rem; opacity: .85; text-align: center;
+      transition: background .3s;
+    }
+
+    /* Checklist */
+    .checklist { display: grid; gap: 8px; }
+    .check {
+      display: flex; gap: 10px; align-items: center; padding: 12px; border: 1px solid var(--line);
+      border-radius: 14px; background: #fbfdff; cursor: pointer; transition: background .1s;
+    }
+    .check:hover { background: #f0f4fb; }
+    .check input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer; }
+
+    /* Progress */
+    .progress-bar {
+      position: sticky; top: 0; z-index: 100; background: var(--card); border-bottom: 1px solid var(--line);
+      padding: 10px 24px; display: flex; align-items: center; gap: 14px;
+    }
+    .progress-track {
+      flex: 1; height: 8px; background: #e5e7eb; border-radius: 99px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 99px; transition: width .3s; width: 0;
+    }
+    .progress-text { font-size: .85rem; font-weight: 700; color: var(--primary); min-width: 36px; text-align: right; }
+
+    .footer-space { height: 32px; }
+  </style>
+</head>
+<body>
+  <!-- Progress Bar -->
+  <div class="progress-bar">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-text" id="progressText">0%</div>
+  </div>
+
+  <div class="wrap">
+    <section class="hero">
+      <div class="badge">Professioneller Website-Fragebogen</div>
+      <h1>Projekt-Briefing für Ihre neue Webseite</h1>
+      <p>Füllen Sie diesen Fragebogen aus, damit wir Ihre Webseite genau nach Ihren Vorstellungen erstellen können. Alle Angaben werden als TXT-Datei exportiert.</p>
+      <div class="actions">
+        <button class="btn-primary" type="button" onclick="downloadTxt()">TXT herunterladen</button>
+        <button class="btn-secondary" type="button" onclick="resetForm()">Formular leeren</button>
+      </div>
+    </section>
+
+    <form id="qform" class="grid">
+      <!-- 1. Unternehmensdaten -->
+      <section class="card">
+        <div class="section-title"><div class="num">1</div><div><h2>Unternehmensdaten</h2><p class="sub">Basisdaten für Kontakt, Footer, Schema und Vertrauenssignale.</p></div></div>
+        <div class="fields two">
+          <div><label>Firmenname</label><input id="firmenname"></div>
+          <div><label>Ansprechpartner / Inhaber</label><input id="ansprechpartner"></div>
+          <div><label>Telefonnummer</label><input id="telefon" type="tel"></div>
+          <div><label>E-Mail</label><input id="email" type="email"></div>
+          <div><label>WhatsApp Nummer</label><input id="whatsapp" type="tel"></div>
+          <div><label>Bestehende Webseite / Domain</label><input id="webseite" type="url" placeholder="https://..."></div>
+          <div><label>Gründungsjahr</label><input id="gruendung" type="number" min="1800" max="2026" placeholder="z.B. 2005"></div>
+          <div><label>Rechtsform</label><select id="rechtsform"><option></option><option>Einzelunternehmen</option><option>GbR</option><option>GmbH</option><option>UG (haftungsbeschränkt)</option><option>OHG</option><option>KG</option><option>AG</option><option>e.K.</option><option>Freiberufler</option><option>Sonstige</option></select></div>
+          <div><label>Hauptstadt / Hauptregion</label><input id="hauptregion"></div>
+          <div><label>Weitere Niederlassungen</label><input id="niederlassungen"></div>
+          <div><label>Anzahl Mitarbeiter</label><input id="mitarbeiter" placeholder="z.B. 5-10"></div>
+          <div><label>Branche</label><input id="branche" placeholder="z.B. Handwerk, IT, Gastronomie"></div>
+        </div>
+        <div style="margin-top:14px"><label>Geschäftsadresse</label><textarea id="adresse" rows="3"></textarea></div>
+      </section>
+
+      <!-- 2. Zielgruppe & Positionierung (NEU) -->
+      <section class="card">
+        <div class="section-title"><div class="num">2</div><div><h2>Zielgruppe & Positionierung</h2><p class="sub">Definiert Ansprache, Design und Inhalte der Webseite.</p></div></div>
+        <div class="fields two">
+          <div><label>Wer ist Ihre Hauptzielgruppe?</label><textarea id="zielgruppe" placeholder="z.B. Privatkunden 30-55 Jahre, Eigenheimbesitzer"></textarea></div>
+          <div><label>Gibt es eine sekundäre Zielgruppe?</label><textarea id="zielgruppe2" placeholder="z.B. Hausverwaltungen, Gewerbetreibende"></textarea></div>
+          <div><label>Wie sollen Sie von Kunden wahrgenommen werden?</label><textarea id="wahrnehmung" placeholder="z.B. kompetent, nahbar, premium"></textarea></div>
+          <div><label>Welche Tonalität soll die Webseite haben?</label><select id="tonalitaet"><option></option><option>Professionell & seriös</option><option>Freundlich & nahbar</option><option>Modern & dynamisch</option><option>Traditionell & vertrauenswürdig</option><option>Premium & exklusiv</option><option>Locker & unkompliziert</option></select></div>
+          <div><label>Soll die Ansprache „Sie" oder „Du" sein?</label><select id="ansprache"><option></option><option>Sie (formell)</option><option>Du (informell)</option><option>Gemischt / egal</option></select></div>
+          <div><label>Was suchen Ihre Kunden, wenn sie auf Ihre Webseite kommen?</label><textarea id="kundensuche" placeholder="z.B. schnelle Hilfe bei Rohrbruch, Preise vergleichen"></textarea></div>
+        </div>
+      </section>
+
+      <!-- 3. Google Business & Online Profile -->
+      <section class="card">
+        <div class="section-title"><div class="num">3</div><div><h2>Google Business & Online Profile</h2><p class="sub">Sichtbarkeit, Vertrauenssignale und Verlinkungen.</p></div></div>
+        <div class="fields two">
+          <div><label>Google Business Profil vorhanden?</label><select id="gbp_vorhanden"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Link zum Google Business Profil</label><input id="gbp_link" type="url"></div>
+          <div><label>Name des Profils bei Google</label><input id="gbp_name"></div>
+          <div><label>Anzahl Bewertungen</label><input id="gbp_reviews" type="number" min="0"></div>
+          <div><label>Sternebewertung</label><input id="gbp_rating" type="number" min="1" max="5" step="0.1" placeholder="z.B. 4.8"></div>
+          <div><label>Google Profil aktiv einbinden?</label><select id="gbp_einbinden"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Instagram</label><input id="social_instagram" placeholder="@nutzername oder URL"></div>
+          <div><label>Facebook</label><input id="social_facebook"></div>
+          <div><label>TikTok</label><input id="social_tiktok"></div>
+          <div><label>LinkedIn</label><input id="social_linkedin"></div>
+          <div><label>YouTube</label><input id="social_youtube"></div>
+          <div><label>X / Twitter</label><input id="social_x"></div>
+          <div><label>Pinterest</label><input id="social_pinterest"></div>
+          <div><label>Sonstige Profile</label><input id="social_sonstige"></div>
+        </div>
+        <div class="fields two" style="margin-top:14px">
+          <div><label>Plattformen, auf denen Sie NICHT erscheinen möchten</label><textarea id="social_no"></textarea></div>
+          <div><label>Welche Profile sollen sichtbar verlinkt werden?</label><textarea id="social_visible"></textarea></div>
+          <div style="grid-column:1 / -1"><label>Welche Profile sind besonders wichtig für Neukunden?</label><textarea id="social_wichtig"></textarea></div>
+        </div>
+      </section>
+
+      <!-- 4. Leistungen -->
+      <section class="card">
+        <div class="section-title"><div class="num">4</div><div><h2>Leistungen</h2><p class="sub">Bestimmt die spätere Seitenstruktur und SEO-Schwerpunkte.</p></div></div>
+        <div class="fields two">
+          <div style="grid-column:1 / -1"><label>Welche Dienstleistungen bieten Sie an?</label><textarea id="leistungen" placeholder="Bitte alle Leistungen auflisten, eine pro Zeile"></textarea></div>
+          <div><label>Welche 3 Leistungen sind am wichtigsten?</label><textarea id="top3"></textarea></div>
+          <div><label>Welche sollen prominent auf der Startseite erscheinen?</label><textarea id="start_prominent"></textarea></div>
+          <div><label>Welche Leistungen bieten Sie NICHT an?</label><textarea id="nicht"></textarea></div>
+          <div><label>Spezialisierungen oder besondere Stärken</label><textarea id="spezial"></textarea></div>
+          <div><label>Mindestaufträge, Anfahrtskosten oder Preisrahmen</label><textarea id="preise"></textarea></div>
+          <div style="grid-column:1 / -1"><label>Notdienst, Express-Service oder Wochenendtermine</label><textarea id="express"></textarea></div>
+        </div>
+      </section>
+
+      <!-- 5. Einsatzgebiet -->
+      <section class="card">
+        <div class="section-title"><div class="num">5</div><div><h2>Einsatzgebiet / Standorte / Local SEO</h2><p class="sub">Wichtig für Standortseiten und lokale Relevanz.</p></div></div>
+        <div class="fields two">
+          <div><label>In welchen Städten / Regionen arbeiten Sie?</label><textarea id="gebiete"></textarea></div>
+          <div><label>Welche Orte sind am wichtigsten?</label><textarea id="orte_wichtig"></textarea></div>
+          <div><label>Relevante Stadtteile oder Unterregionen</label><textarea id="stadtteile"></textarea></div>
+          <div><label>Einsatzradius</label><input id="radius" placeholder="z.B. 50 km"></div>
+          <div><label>Orte mit besonders vielen Kunden</label><textarea id="orte_viel"></textarea></div>
+          <div><label>Orte, in denen Sie NICHT tätig sind</label><textarea id="orte_nicht"></textarea></div>
+        </div>
+      </section>
+
+      <!-- 6. Vertrauen -->
+      <section class="card">
+        <div class="section-title"><div class="num">6</div><div><h2>Vertrauen / Referenzen / Marketing</h2><p class="sub">Für Conversion, Hero-Bereich, Referenzen und Social Proof.</p></div></div>
+        <div class="fields two">
+          <div><label>Jahre Erfahrung</label><input id="erfahrung" type="number" min="0"></div>
+          <div><label>Ungefähre Anzahl betreuter Kunden</label><input id="kunden"></div>
+          <div><label>Echte Kundenbewertungen oder Referenzen</label><textarea id="referenzen"></textarea></div>
+          <div><label>Partner, Kooperationen oder bekannte Auftraggeber</label><textarea id="partner"></textarea></div>
+          <div><label>Zertifikate, Mitgliedschaften oder Auszeichnungen</label><textarea id="zertifikate"></textarea></div>
+          <div><label>Was unterscheidet Sie von der Konkurrenz?</label><textarea id="usp"></textarea></div>
+          <div style="grid-column:1 / -1"><label>3 wichtigste Vorteile aus Kundensicht</label><textarea id="vorteile3" placeholder="1. ...\n2. ...\n3. ..."></textarea></div>
+        </div>
+      </section>
+
+      <!-- 7. Branding / Design / Farben -->
+      <section class="card">
+        <div class="section-title"><div class="num">7</div><div><h2>Branding / Design / Farben</h2><p class="sub">Freie Farbauswahl mit harmonischen Paletten und Live-Vorschau.</p></div></div>
+
+        <div class="note">
+          <strong>So funktioniert es:</strong> Wählen Sie unten eine Basisfarbe – daraus werden automatisch harmonische Farbpaletten generiert.
+          Klicken Sie auf eine Palette, um sie zu übernehmen. Sie können jede Farbe auch einzeln per Color-Picker oder Hex-Code anpassen.<br><br>
+          <strong>Hauptfarbe</strong> = Header, Überschriften, zentrale Markenelemente<br>
+          <strong>Zusatzfarbe</strong> = Hintergründe, Flächen, ruhige Bereiche<br>
+          <strong>Akzentfarbe</strong> = CTA-Buttons, Highlights, Aufmerksamkeitselemente
+        </div>
+
+        <!-- Base Color Picker -->
+        <div class="color-section">
+          <div style="margin: 18px 0 14px;">
+            <label>Basisfarbe wählen (daraus werden Paletten generiert)</label>
+            <div class="color-picker-wrap">
+              <input type="color" id="baseColorPicker" value="#1e3a5f">
+              <input class="color-hex-input" id="baseColorHex" value="#1e3a5f" maxlength="7" placeholder="#1e3a5f">
+              <div class="color-name-display" id="baseColorName">Dunkelblau</div>
+            </div>
+          </div>
+
+          <!-- Palette Suggestions -->
+          <div class="palette-section">
+            <h3>Harmonische Paletten</h3>
+            <div class="palette-tabs" id="paletteTabs">
+              <button type="button" class="palette-tab active" data-harmony="complementary">Komplementär</button>
+              <button type="button" class="palette-tab" data-harmony="analogous">Analog</button>
+              <button type="button" class="palette-tab" data-harmony="triadic">Triadisch</button>
+              <button type="button" class="palette-tab" data-harmony="split">Split-Komplementär</button>
+              <button type="button" class="palette-tab" data-harmony="monochromatic">Monochromatisch</button>
+            </div>
+            <div class="palette-grid" id="paletteGrid"></div>
+          </div>
+
+          <!-- Individual Color Pickers -->
+          <div class="color-row" style="margin-top: 20px;">
+            <div class="color-box">
+              <label>Hauptfarbe</label>
+              <div class="small">Header, Navigation, Marke</div>
+              <div class="color-picker-wrap">
+                <input type="color" id="colorPrimary" value="#1e3a5f">
+                <input class="color-hex-input" id="hexPrimary" value="#1e3a5f" maxlength="7">
+              </div>
+              <div class="color-name-display" id="namePrimary"></div>
+              <input type="hidden" id="farbe_haupt" value="#1e3a5f">
+            </div>
+            <div class="color-box">
+              <label>Zusatzfarbe</label>
+              <div class="small">Hintergründe, Flächen, Karten</div>
+              <div class="color-picker-wrap">
+                <input type="color" id="colorSecondary" value="#e8eef6">
+                <input class="color-hex-input" id="hexSecondary" value="#e8eef6" maxlength="7">
+              </div>
+              <div class="color-name-display" id="nameSecondary"></div>
+              <input type="hidden" id="farbe_zusatz" value="#e8eef6">
+            </div>
+            <div class="color-box">
+              <label>Akzentfarbe</label>
+              <div class="small">CTA-Buttons, Highlights</div>
+              <div class="color-picker-wrap">
+                <input type="color" id="colorAccent" value="#e07b38">
+                <input class="color-hex-input" id="hexAccent" value="#e07b38" maxlength="7">
+              </div>
+              <div class="color-name-display" id="nameAccent"></div>
+              <input type="hidden" id="farbe_akzent" value="#e07b38">
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Preview -->
+        <div class="preview" id="preview">
+          <div class="preview-header" id="previewHeader">
+            <strong id="previewBrand">Ihr Unternehmen</strong>
+            <div class="preview-nav">
+              <span>Start</span>
+              <span>Leistungen</span>
+              <span>Kontakt</span>
+            </div>
+          </div>
+          <div class="preview-body" id="previewBody">
+            <div class="preview-card">
+              <h3 style="margin:0 0 8px" id="previewHeading">Willkommen bei Ihrem Unternehmen</h3>
+              <p class="small" style="margin:0">So wirkt Ihre Farbkombination auf der fertigen Webseite. Hauptfarbe im Header, Zusatzfarbe als Hintergrund, Akzentfarbe für den Button.</p>
+              <span class="preview-btn" id="previewBtn">Jetzt Kontakt aufnehmen</span>
+            </div>
+          </div>
+          <div class="preview-footer" id="previewFooter">
+            © 2026 Ihr Unternehmen · Impressum · Datenschutz
+          </div>
+        </div>
+
+        <div class="fields two" style="margin-top:16px">
+          <div><label>Welche Wirkung soll die Webseite insgesamt haben?</label><textarea id="wirkung" placeholder="z.B. modern, vertrauenswürdig, professionell"></textarea></div>
+          <div><label>Webseiten, deren Farben oder Stil Ihnen gefallen</label><textarea id="inspiration" placeholder="URLs von Webseiten, die Ihnen optisch gefallen"></textarea></div>
+          <div><label>Haben Sie ein Logo?</label><select id="logo_vorhanden"><option></option><option>ja</option><option>nein</option><option>wird noch erstellt</option></select></div>
+          <div><label>Logo Datei oder Link</label><input id="logo_link"></div>
+          <div><label>Haben Sie ein Favicon?</label><select id="favicon_vorhanden"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Favicon Datei oder Link</label><input id="favicon_link"></div>
+          <div><label>Feste Schriftarten oder Designvorgaben</label><textarea id="schrift"></textarea></div>
+          <div><label>Farbkombinationen, die Sie NICHT möchten</label><textarea id="no_colors"></textarea></div>
+          <div style="grid-column:1 / -1"><label>Nutzungsrechte an Bildern, Logos und Icons vorhanden?</label><textarea id="rechte"></textarea></div>
+        </div>
+
+        <table class="specs">
+          <thead><tr><th>Dateityp</th><th>Format</th><th>Auflösung</th><th>Max. Größe</th></tr></thead>
+          <tbody>
+            <tr><td>Logo</td><td>SVG bevorzugt, alt. WebP</td><td>SVG skalierbar, WebP mind. 800×800</td><td>SVG &lt;200 KB, WebP &lt;300 KB</td></tr>
+            <tr><td>Favicon</td><td>SVG bevorzugt, alt. PNG</td><td>512×512 px</td><td>&lt;100 KB</td></tr>
+            <tr><td>OG / Social</td><td>WebP</td><td>1200×630 px</td><td>&lt;300 KB</td></tr>
+            <tr><td>Hero-Bild</td><td>WebP</td><td>1920×1080 px</td><td>&lt;350 KB</td></tr>
+            <tr><td>Leistungsbilder</td><td>WebP</td><td>1200×800 px</td><td>&lt;250 KB</td></tr>
+            <tr><td>Icons</td><td>SVG bevorzugt</td><td>512×512 px</td><td>&lt;80 KB</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 8. Bilder / Medien -->
+      <section class="card">
+        <div class="section-title"><div class="num">8</div><div><h2>Bilder / Medien</h2><p class="sub">Welche Medien vorhanden sind und wie sie eingesetzt werden sollen.</p></div></div>
+        <div class="fields two">
+          <div><label>Welche Bilder stehen zur Verfügung?</label><textarea id="bilder_verf"></textarea></div>
+          <div><label>Welche Bilder sollen unbedingt auf die Webseite?</label><textarea id="bilder_unbedingt"></textarea></div>
+          <div><label>Welche Bilder sollen NICHT verwendet werden?</label><textarea id="bilder_nicht"></textarea></div>
+          <div><label>Welchen Stil sollen die Bilder haben?</label><textarea id="bilder_stil" placeholder="z.B. echte Fotos, professionell, authentisch"></textarea></div>
+          <div><label>Bild als großes Startseitenbild vorhanden?</label><textarea id="hero_bild"></textarea></div>
+          <div><label>Bilder für Social Media / WhatsApp / Google?</label><textarea id="social_bilder"></textarea></div>
+        </div>
+      </section>
+
+      <!-- 9. FAQ -->
+      <section class="card">
+        <div class="section-title"><div class="num">9</div><div><h2>FAQ / Kundenfragen / Inhalte</h2><p class="sub">Wichtig für FAQ, Blog, SEO und Kundenverständnis.</p></div></div>
+        <div class="fields two">
+          <div><label>Häufigste Kundenfragen</label><textarea id="faq_fragen"></textarea></div>
+          <div><label>Häufige Einwände von Kunden</label><textarea id="faq_einwaende"></textarea></div>
+          <div><label>Infos, die Kunden sofort wissen wollen</label><textarea id="faq_sofort"></textarea></div>
+          <div><label>Typischer Auftragsablauf</label><textarea id="faq_ablauf"></textarea></div>
+          <div><label>Was sollen Kunden auf der Startseite sofort verstehen?</label><textarea id="faq_startseite"></textarea></div>
+          <div><label>Themen, die ausführlich erklärt werden sollen</label><textarea id="faq_themen"></textarea></div>
+          <div style="grid-column:1 / -1"><label>Themenideen für FAQ / Blog / Ratgeber</label><textarea id="faq_blogs"></textarea><span class="hint">Tipp: Recherche z.B. via site:reddit.com [Thema] für echte Kundenfragen.</span></div>
+        </div>
+      </section>
+
+      <!-- 10. Kontakt & Conversion -->
+      <section class="card">
+        <div class="section-title"><div class="num">10</div><div><h2>Kontakt & Conversion</h2><p class="sub">Welche Aktion und Kontaktform priorisiert werden soll.</p></div></div>
+        <div class="fields two">
+          <div><label>Bevorzugter Kontaktweg der Kunden</label><textarea id="kontaktweg"></textarea></div>
+          <div><label>Wichtigste Aktion auf der Webseite (CTA)</label><textarea id="cta" placeholder="z.B. Angebot anfordern, Termin buchen"></textarea></div>
+          <div><label>Welche Kontaktart hervorheben?</label><textarea id="kontakt_hervor"></textarea></div>
+          <div><label>Erreichbarkeit / Öffnungszeiten</label><textarea id="zeiten"></textarea></div>
+          <div><label>Übliche Antwortzeit</label><textarea id="antwortzeit"></textarea></div>
+          <div><label>Kontaktformular einbauen?</label><select id="formular_ja"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>WhatsApp direkt verlinken?</label><select id="wa_link"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Online-Terminbuchung gewünscht?</label><select id="termin_booking"><option></option><option>ja</option><option>nein</option><option>eventuell</option></select></div>
+        </div>
+      </section>
+
+      <!-- 11. SEO -->
+      <section class="card">
+        <div class="section-title"><div class="num">11</div><div><h2>SEO / Wettbewerber / Struktur</h2><p class="sub">Für Keywords, Seitenarchitektur und Konkurrenzanalyse.</p></div></div>
+        <div class="fields two">
+          <div><label>Besonders wichtige Suchbegriffe</label><textarea id="seo_keywords" placeholder="z.B. Elektriker München, Sanitär Notdienst"></textarea></div>
+          <div><label>Städte/Regionen besonders bewerben</label><textarea id="seo_staedte"></textarea></div>
+          <div><label>Relevante Mitbewerber-Webseiten</label><textarea id="seo_wettbewerber" placeholder="URLs von Wettbewerbern"></textarea></div>
+          <div><label>Welche Seiten soll die Webseite enthalten?</label><textarea id="seo_seiten" placeholder="z.B. Start, Leistungen, Über uns, Kontakt"></textarea></div>
+          <div><label>Standortseiten gewünscht?</label><select id="seo_standortseiten"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Leistungs-Unterseiten gewünscht?</label><select id="seo_leistungsseiten"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Blog / Ratgeberseiten gewünscht?</label><select id="seo_blog"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Google Ads geplant?</label><select id="seo_ads"><option></option><option>ja</option><option>nein</option><option>eventuell</option></select></div>
+        </div>
+      </section>
+
+      <!-- 12. Technisches (NEU) -->
+      <section class="card">
+        <div class="section-title"><div class="num">12</div><div><h2>Technische Anforderungen</h2><p class="sub">Hosting, Funktionen und technische Wünsche.</p></div></div>
+        <div class="fields two">
+          <div><label>Bestehender Hosting-Anbieter</label><input id="tech_hosting" placeholder="z.B. Strato, IONOS, All-Inkl"></div>
+          <div><label>Domain bereits vorhanden?</label><select id="tech_domain"><option></option><option>ja</option><option>nein, muss registriert werden</option></select></div>
+          <div><label>Cookie-Consent / DSGVO-Banner gewünscht?</label><select id="tech_cookie"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Google Analytics / Tracking gewünscht?</label><select id="tech_analytics"><option></option><option>ja</option><option>nein</option><option>eventuell</option></select></div>
+          <div><label>Mehrsprachigkeit gewünscht?</label><select id="tech_sprachen"><option></option><option>nein, nur Deutsch</option><option>ja, Deutsch + Englisch</option><option>ja, mehrere Sprachen</option></select></div>
+          <div><label>Besondere Funktionen gewünscht</label><textarea id="tech_funktionen" placeholder="z.B. Bildergalerie, Preisrechner, Buchungssystem"></textarea></div>
+        </div>
+      </section>
+
+      <!-- 13. Rechtliches -->
+      <section class="card">
+        <div class="section-title"><div class="num">13</div><div><h2>Rechtliches</h2><p class="sub">Pflichtangaben und rechtliche Hinweise.</p></div></div>
+        <div class="fields two">
+          <div><label>Impressumsdaten vorhanden?</label><select id="recht_impressum"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Datenschutzhinweise vorhanden?</label><select id="recht_datenschutz"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Handelsregisterdaten, USt-IdNr. etc.</label><textarea id="recht_pflicht"></textarea></div>
+          <div><label>Sonstige rechtliche Hinweise</label><textarea id="recht_hinweise"></textarea></div>
+        </div>
+      </section>
+
+      <!-- 14. Budget & Zeitplan (NEU) -->
+      <section class="card">
+        <div class="section-title"><div class="num">14</div><div><h2>Budget & Zeitplan</h2><p class="sub">Für eine realistische Projektplanung.</p></div></div>
+        <div class="fields two">
+          <div><label>Budget-Rahmen</label><select id="budget"><option></option><option>unter 1.000 €</option><option>1.000 – 2.500 €</option><option>2.500 – 5.000 €</option><option>5.000 – 10.000 €</option><option>über 10.000 €</option><option>möchte ich besprechen</option></select></div>
+          <div><label>Wunsch-Termin für Go-Live</label><input id="timeline" placeholder="z.B. in 4 Wochen, bis Ende Mai"></div>
+          <div><label>Gibt es einen festen Deadline-Grund?</label><textarea id="deadline_grund" placeholder="z.B. Messe, Saisonstart, Geschäftseröffnung"></textarea></div>
+          <div><label>Laufende Betreuung / Wartung gewünscht?</label><select id="wartung"><option></option><option>ja</option><option>nein</option><option>eventuell</option></select></div>
+        </div>
+      </section>
+
+      <!-- 15. Checkliste -->
+      <section class="card">
+        <div class="section-title"><div class="num">15</div><div><h2>Abschließende Checkliste</h2><p class="sub">Wird mit in die TXT-Datei übernommen.</p></div></div>
+        <div class="checklist">
+          <label class="check"><input type="checkbox" id="chk1"> Kontaktangaben vollständig</label>
+          <label class="check"><input type="checkbox" id="chk2"> Zielgruppe definiert</label>
+          <label class="check"><input type="checkbox" id="chk3"> Leistungen vollständig</label>
+          <label class="check"><input type="checkbox" id="chk4"> Einsatzgebiet genannt</label>
+          <label class="check"><input type="checkbox" id="chk5"> Google Business Profil angegeben</label>
+          <label class="check"><input type="checkbox" id="chk6"> Social-Media-Profile angegeben</label>
+          <label class="check"><input type="checkbox" id="chk7"> Branding / Farben festgelegt</label>
+          <label class="check"><input type="checkbox" id="chk8"> Bilder / Logo / Icons vorbereitet</label>
+          <label class="check"><input type="checkbox" id="chk9"> Rechte an Bildern bestätigt</label>
+          <label class="check"><input type="checkbox" id="chk10"> FAQ / Kundenfragen ergänzt</label>
+          <label class="check"><input type="checkbox" id="chk11"> Rechtliche Angaben ergänzt</label>
+          <label class="check"><input type="checkbox" id="chk12"> Budget & Zeitplan besprochen</label>
+        </div>
+
+        <div class="actions" style="margin-top:20px">
+          <button class="btn-primary" type="button" onclick="downloadTxt()">TXT herunterladen</button>
+          <button class="btn-secondary" type="button" onclick="resetForm()">Formular leeren</button>
+        </div>
+      </section>
+    </form>
+    <div class="footer-space"></div>
+  </div>
+
+  <script>
+    // ========== Color Utilities ==========
+    function hexToHsl(hex) {
+      hex = hex.replace('#', '');
+      const r = parseInt(hex.substring(0, 2), 16) / 255;
+      const g = parseInt(hex.substring(2, 4), 16) / 255;
+      const b = parseInt(hex.substring(4, 6), 16) / 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+      if (max === min) { h = s = 0; }
+      else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+          case g: h = ((b - r) / d + 2) / 6; break;
+          case b: h = ((r - g) / d + 4) / 6; break;
+        }
+      }
+      return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+    }
+
+    function hslToHex(h, s, l) {
+      h = ((h % 360) + 360) % 360;
+      s = Math.max(0, Math.min(100, s)) / 100;
+      l = Math.max(0, Math.min(100, l)) / 100;
+      const c = (1 - Math.abs(2 * l - 1)) * s;
+      const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+      const m = l - c / 2;
+      let r, g, b;
+      if (h < 60) { r = c; g = x; b = 0; }
+      else if (h < 120) { r = x; g = c; b = 0; }
+      else if (h < 180) { r = 0; g = c; b = x; }
+      else if (h < 240) { r = 0; g = x; b = c; }
+      else if (h < 300) { r = x; g = 0; b = c; }
+      else { r = c; g = 0; b = x; }
+      const toHex = v => Math.round((v + m) * 255).toString(16).padStart(2, '0');
+      return '#' + toHex(r) + toHex(g) + toHex(b);
+    }
+
+    function getColorName(hex) {
+      const [h, s, l] = hexToHsl(hex);
+      if (l < 8) return 'Schwarz';
+      if (l > 95) return 'Weiß';
+      if (s < 8) {
+        if (l < 30) return 'Dunkelgrau';
+        if (l < 60) return 'Grau';
+        return 'Hellgrau';
+      }
+      let name;
+      if (h < 15 || h >= 345) name = 'Rot';
+      else if (h < 40) name = 'Orange';
+      else if (h < 65) name = 'Gelb';
+      else if (h < 80) name = 'Gelbgrün';
+      else if (h < 160) name = 'Grün';
+      else if (h < 190) name = 'Türkis';
+      else if (h < 250) name = 'Blau';
+      else if (h < 290) name = 'Violett';
+      else if (h < 330) name = 'Pink';
+      else name = 'Rosa';
+
+      if (l < 25) return 'Dunkel' + name.toLowerCase();
+      if (l < 40) return 'Dunkel' + name.toLowerCase();
+      if (l > 75) return 'Hell' + name.toLowerCase();
+      if (s > 70) return 'Kräftiges ' + name;
+      return name;
+    }
+
+    function getContrastColor(hex) {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return (r * 299 + g * 587 + b * 114) / 1000 > 128 ? '#1a2433' : '#ffffff';
+    }
+
+    // ========== Palette Generation ==========
+    function generatePalettes(baseHex, harmony) {
+      const [h, s, l] = hexToHsl(baseHex);
+      const palettes = [];
+
+      switch (harmony) {
+        case 'complementary':
+          palettes.push({
+            label: 'Klassisch Komplementär',
+            desc: 'Starker Kontrast, energisch',
+            primary: baseHex,
+            secondary: hslToHex(h, Math.max(s - 45, 5), 94),
+            accent: hslToHex((h + 180) % 360, Math.min(s + 10, 85), Math.max(l, 45))
+          });
+          palettes.push({
+            label: 'Sanft Komplementär',
+            desc: 'Ausgewogen, professionell',
+            primary: hslToHex(h, Math.max(s - 10, 20), Math.min(l + 5, 40)),
+            secondary: hslToHex(h, Math.max(s - 50, 5), 96),
+            accent: hslToHex((h + 180) % 360, Math.min(s, 70), 55)
+          });
+          palettes.push({
+            label: 'Warm Komplementär',
+            desc: 'Einladend, freundlich',
+            primary: baseHex,
+            secondary: hslToHex((h + 180) % 360, 15, 95),
+            accent: hslToHex((h + 170) % 360, Math.min(s + 15, 80), 50)
+          });
+          break;
+
+        case 'analogous':
+          palettes.push({
+            label: 'Harmonisch Analog',
+            desc: 'Ruhig, zusammengehörig',
+            primary: baseHex,
+            secondary: hslToHex((h + 30) % 360, Math.max(s - 45, 5), 94),
+            accent: hslToHex((h + 30) % 360, Math.min(s + 10, 80), Math.max(l, 45))
+          });
+          palettes.push({
+            label: 'Kühles Spektrum',
+            desc: 'Elegant, technisch',
+            primary: baseHex,
+            secondary: hslToHex((h - 20 + 360) % 360, Math.max(s - 50, 5), 95),
+            accent: hslToHex((h - 30 + 360) % 360, Math.min(s + 5, 75), Math.max(l + 10, 50))
+          });
+          palettes.push({
+            label: 'Warmes Spektrum',
+            desc: 'Nahbar, vertraut',
+            primary: hslToHex(h, s, Math.min(l + 5, 40)),
+            secondary: hslToHex((h + 20) % 360, 15, 96),
+            accent: hslToHex((h + 40) % 360, Math.min(s + 15, 85), 55)
+          });
+          break;
+
+        case 'triadic':
+          palettes.push({
+            label: 'Triadisch Klassisch',
+            desc: 'Vielfältig, lebendig',
+            primary: baseHex,
+            secondary: hslToHex((h + 120) % 360, Math.max(s - 50, 5), 95),
+            accent: hslToHex((h + 240) % 360, Math.min(s + 5, 75), Math.max(l + 5, 48))
+          });
+          palettes.push({
+            label: 'Triadisch Dezent',
+            desc: 'Ausgewogen, subtil',
+            primary: baseHex,
+            secondary: hslToHex(h, Math.max(s - 45, 5), 96),
+            accent: hslToHex((h + 120) % 360, Math.min(s, 60), 50)
+          });
+          palettes.push({
+            label: 'Triadisch Stark',
+            desc: 'Auffällig, modern',
+            primary: hslToHex(h, Math.min(s + 10, 80), Math.max(l - 5, 20)),
+            secondary: hslToHex((h + 240) % 360, 12, 95),
+            accent: hslToHex((h + 120) % 360, Math.min(s + 15, 85), 55)
+          });
+          break;
+
+        case 'split':
+          palettes.push({
+            label: 'Split-Komplementär A',
+            desc: 'Nuanciert, raffiniert',
+            primary: baseHex,
+            secondary: hslToHex((h + 150) % 360, Math.max(s - 50, 5), 95),
+            accent: hslToHex((h + 150) % 360, Math.min(s + 5, 75), Math.max(l + 5, 48))
+          });
+          palettes.push({
+            label: 'Split-Komplementär B',
+            desc: 'Dynamisch, kontrastreich',
+            primary: baseHex,
+            secondary: hslToHex(h, Math.max(s - 45, 5), 95),
+            accent: hslToHex((h + 210) % 360, Math.min(s + 10, 80), Math.max(l + 5, 48))
+          });
+          palettes.push({
+            label: 'Split Warm-Kalt',
+            desc: 'Ausbalanciert, vielseitig',
+            primary: baseHex,
+            secondary: hslToHex((h + 210) % 360, 12, 96),
+            accent: hslToHex((h + 160) % 360, Math.min(s + 10, 75), 50)
+          });
+          break;
+
+        case 'monochromatic':
+          palettes.push({
+            label: 'Mono Hell',
+            desc: 'Clean, minimalistisch',
+            primary: hslToHex(h, s, Math.max(l - 5, 18)),
+            secondary: hslToHex(h, Math.max(s - 50, 5), 96),
+            accent: hslToHex(h, Math.min(s + 15, 85), 55)
+          });
+          palettes.push({
+            label: 'Mono Dunkel',
+            desc: 'Seriös, edel',
+            primary: hslToHex(h, Math.min(s + 5, 75), Math.max(l - 10, 15)),
+            secondary: hslToHex(h, Math.max(s - 40, 8), 93),
+            accent: hslToHex(h, Math.min(s + 20, 90), 50)
+          });
+          palettes.push({
+            label: 'Mono Kontrast',
+            desc: 'Klar, fokussiert',
+            primary: baseHex,
+            secondary: hslToHex(h, 8, 97),
+            accent: hslToHex(h, Math.min(s + 25, 90), 42)
+          });
+          break;
+      }
+      return palettes;
+    }
+
+    // ========== UI State ==========
+    let currentHarmony = 'complementary';
+
+    function renderPalettes() {
+      const baseColor = document.getElementById('baseColorPicker').value;
+      const palettes = generatePalettes(baseColor, currentHarmony);
+      const grid = document.getElementById('paletteGrid');
+      grid.innerHTML = '';
+
+      palettes.forEach((p, i) => {
+        const card = document.createElement('div');
+        card.className = 'palette-card';
+        card.innerHTML = `
+          <div class="palette-colors">
+            <div style="background:${p.primary}" title="Hauptfarbe: ${p.primary}"></div>
+            <div style="background:${p.secondary}" title="Zusatzfarbe: ${p.secondary}"></div>
+            <div style="background:${p.accent}" title="Akzentfarbe: ${p.accent}"></div>
+          </div>
+          <div class="palette-label">${p.label}</div>
+          <div class="palette-desc">${p.desc}</div>
+        `;
+        card.addEventListener('click', () => {
+          applyPalette(p.primary, p.secondary, p.accent);
+          document.querySelectorAll('.palette-card').forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    function applyPalette(primary, secondary, accent) {
+      setColor('Primary', primary);
+      setColor('Secondary', secondary);
+      setColor('Accent', accent);
+      updatePreview();
+    }
+
+    function setColor(type, hex) {
+      hex = hex.toLowerCase();
+      document.getElementById('color' + type).value = hex;
+      document.getElementById('hex' + type).value = hex;
+      document.getElementById('name' + type).textContent = getColorName(hex);
+      const hiddenId = type === 'Primary' ? 'farbe_haupt' : type === 'Secondary' ? 'farbe_zusatz' : 'farbe_akzent';
+      document.getElementById(hiddenId).value = hex + ' (' + getColorName(hex) + ')';
+    }
+
+    function updatePreview() {
+      const primary = document.getElementById('colorPrimary').value;
+      const secondary = document.getElementById('colorSecondary').value;
+      const accent = document.getElementById('colorAccent').value;
+
+      const header = document.getElementById('previewHeader');
+      const body = document.getElementById('previewBody');
+      const btn = document.getElementById('previewBtn');
+      const footer = document.getElementById('previewFooter');
+      const heading = document.getElementById('previewHeading');
+
+      header.style.background = primary;
+      header.style.color = getContrastColor(primary);
+      body.style.background = secondary;
+      btn.style.background = accent;
+      btn.style.color = getContrastColor(accent);
+      footer.style.background = primary;
+      footer.style.color = getContrastColor(primary);
+      heading.style.color = primary;
+
+      // Update brand name in preview
+      const firmenname = document.getElementById('firmenname').value.trim();
+      document.getElementById('previewBrand').textContent = firmenname || 'Ihr Unternehmen';
+      document.getElementById('previewHeading').textContent = 'Willkommen bei ' + (firmenname || 'Ihrem Unternehmen');
+    }
+
+    // ========== Event Listeners ==========
+
+    // Base color picker
+    document.getElementById('baseColorPicker').addEventListener('input', function() {
+      document.getElementById('baseColorHex').value = this.value;
+      document.getElementById('baseColorName').textContent = getColorName(this.value);
+      renderPalettes();
+    });
+
+    document.getElementById('baseColorHex').addEventListener('input', function() {
+      let val = this.value.trim();
+      if (!val.startsWith('#')) val = '#' + val;
+      if (/^#[0-9a-fA-F]{6}$/.test(val)) {
+        document.getElementById('baseColorPicker').value = val;
+        document.getElementById('baseColorName').textContent = getColorName(val);
+        renderPalettes();
+      }
+    });
+
+    // Palette tabs
+    document.getElementById('paletteTabs').addEventListener('click', function(e) {
+      const tab = e.target.closest('.palette-tab');
+      if (!tab) return;
+      document.querySelectorAll('.palette-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentHarmony = tab.dataset.harmony;
+      renderPalettes();
+    });
+
+    // Individual color pickers
+    ['Primary', 'Secondary', 'Accent'].forEach(type => {
+      document.getElementById('color' + type).addEventListener('input', function() {
+        setColor(type, this.value);
+        updatePreview();
+      });
+      document.getElementById('hex' + type).addEventListener('input', function() {
+        let val = this.value.trim();
+        if (!val.startsWith('#')) val = '#' + val;
+        if (/^#[0-9a-fA-F]{6}$/.test(val)) {
+          setColor(type, val);
+          updatePreview();
+        }
+      });
+    });
+
+    // Update preview when firmenname changes
+    document.getElementById('firmenname').addEventListener('input', updatePreview);
+
+    // ========== Progress Bar ==========
+    function updateProgress() {
+      const inputs = document.querySelectorAll('#qform input:not([type="hidden"]):not([type="checkbox"]):not([type="color"]), #qform textarea, #qform select');
+      let filled = 0;
+      inputs.forEach(el => {
+        if (el.type === 'checkbox') return;
+        if (el.value && el.value.trim()) filled++;
+      });
+      const pct = Math.round((filled / inputs.length) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressText').textContent = pct + '%';
+    }
+
+    document.getElementById('qform').addEventListener('input', updateProgress);
+    document.getElementById('qform').addEventListener('change', updateProgress);
+
+    // ========== TXT Export ==========
+    const map = {
+      unternehmen: [
+        ["Firmenname","firmenname"],["Ansprechpartner / Inhaber","ansprechpartner"],["Telefonnummer","telefon"],["E-Mail","email"],
+        ["WhatsApp Nummer","whatsapp"],["Bestehende Webseite / Domain","webseite"],["Gründungsjahr","gruendung"],
+        ["Rechtsform","rechtsform"],["Geschäftsadresse","adresse"],["Hauptstadt / Hauptregion","hauptregion"],
+        ["Weitere Niederlassungen","niederlassungen"],["Anzahl Mitarbeiter","mitarbeiter"],["Branche","branche"]
+      ],
+      zielgruppe: [
+        ["Wer ist Ihre Hauptzielgruppe?","zielgruppe"],["Gibt es eine sekundäre Zielgruppe?","zielgruppe2"],
+        ["Wie sollen Sie von Kunden wahrgenommen werden?","wahrnehmung"],["Welche Tonalität soll die Webseite haben?","tonalitaet"],
+        ["Soll die Ansprache Sie oder Du sein?","ansprache"],["Was suchen Ihre Kunden auf Ihrer Webseite?","kundensuche"]
+      ],
+      google: [
+        ["Haben Sie ein Google Business Profil?","gbp_vorhanden"],["Link zum Google Business Profil","gbp_link"],
+        ["Name des Profils bei Google","gbp_name"],["Wie viele Bewertungen haben Sie ungefähr?","gbp_reviews"],
+        ["Wie hoch ist Ihre aktuelle Sternebewertung?","gbp_rating"],["Soll das Google Business Profil aktiv eingebunden werden?","gbp_einbinden"],
+        ["Instagram","social_instagram"],["Facebook","social_facebook"],["TikTok","social_tiktok"],["LinkedIn","social_linkedin"],
+        ["YouTube","social_youtube"],["X / Twitter","social_x"],["Pinterest","social_pinterest"],["Sonstige Profile","social_sonstige"],
+        ["Plattformen, auf denen Sie NICHT erscheinen möchten","social_no"],
+        ["Welche Profile sollen sichtbar verlinkt werden?","social_visible"],
+        ["Welche Profile sind besonders wichtig für Neukunden?","social_wichtig"]
+      ],
+      leistungen: [
+        ["Welche Dienstleistungen bieten Sie an?","leistungen"],["Welche 3 Leistungen sind am wichtigsten?","top3"],
+        ["Welche Leistungen sollen prominent auf der Startseite erscheinen?","start_prominent"],
+        ["Welche Leistungen bieten Sie NICHT an?","nicht"],["Gibt es Spezialisierungen oder besondere Stärken?","spezial"],
+        ["Gibt es Mindestaufträge, Anfahrtskosten oder Preisrahmen?","preise"],["Gibt es Notdienst, Express-Service oder Wochenendtermine?","express"]
+      ],
+      gebiet: [
+        ["In welchen Städten / Regionen arbeiten Sie?","gebiete"],["Welche Orte sind am wichtigsten?","orte_wichtig"],
+        ["Welche Stadtteile oder Unterregionen sind relevant?","stadtteile"],["Wie groß ist Ihr Einsatzradius?","radius"],
+        ["Gibt es Orte mit besonders vielen Kunden?","orte_viel"],["Gibt es Orte, in denen Sie NICHT tätig sind?","orte_nicht"]
+      ],
+      vertrauen: [
+        ["Wie viele Jahre Erfahrung haben Sie?","erfahrung"],["Wie viele Kunden haben Sie ungefähr betreut?","kunden"],
+        ["Gibt es echte Kundenbewertungen oder Referenzen?","referenzen"],["Gibt es Partner, Kooperationen oder bekannte Auftraggeber?","partner"],
+        ["Gibt es Zertifikate, Mitgliedschaften oder Auszeichnungen?","zertifikate"],["Was unterscheidet Sie von der Konkurrenz?","usp"],
+        ["Was sind Ihre 3 wichtigsten Vorteile aus Kundensicht?","vorteile3"]
+      ],
+      branding: [
+        ["Hauptfarbe (Hex + Name)","farbe_haupt"],
+        ["Zusatzfarbe (Hex + Name)","farbe_zusatz"],
+        ["Akzentfarbe (Hex + Name)","farbe_akzent"],
+        ["Welche Wirkung soll die Webseite insgesamt haben?","wirkung"],
+        ["Gibt es Webseiten, deren Farben oder Stil Ihnen gefallen?","inspiration"],
+        ["Haben Sie ein Logo?","logo_vorhanden"],["Logo Datei oder Link","logo_link"],
+        ["Haben Sie ein Favicon?","favicon_vorhanden"],["Favicon Datei oder Link","favicon_link"],
+        ["Gibt es feste Schriftarten oder Designvorgaben?","schrift"],
+        ["Gibt es Farbkombinationen, die Sie NICHT möchten?","no_colors"],
+        ["Besitzen Sie die Nutzungsrechte an allen Bildern, Logos und Icons?","rechte"]
+      ],
+      bilder: [
+        ["Welche Bilder stehen zur Verfügung?","bilder_verf"],["Welche Bilder sollen unbedingt auf die Webseite?","bilder_unbedingt"],
+        ["Welche Bilder sollen NICHT verwendet werden?","bilder_nicht"],["Welchen Stil sollen die Bilder haben?","bilder_stil"],
+        ["Gibt es ein Bild als großes Startseitenbild?","hero_bild"],["Gibt es Bilder für Social Media / WhatsApp / Google?","social_bilder"]
+      ],
+      faq: [
+        ["Welche Fragen stellen Kunden am häufigsten?","faq_fragen"],["Welche Einwände haben Kunden häufig?","faq_einwaende"],
+        ["Welche Informationen möchten Kunden sofort wissen?","faq_sofort"],["Wie läuft ein Auftrag typischerweise ab?","faq_ablauf"],
+        ["Was sollen Kunden auf der Startseite sofort verstehen?","faq_startseite"],
+        ["Gibt es Themen, die ausführlich erklärt werden sollen?","faq_themen"],["Themenideen für FAQ / Blog / Ratgeber","faq_blogs"]
+      ],
+      conversion: [
+        ["Wie sollen Kunden am liebsten Kontakt aufnehmen?","kontaktweg"],["Was soll die wichtigste Aktion auf der Webseite sein?","cta"],
+        ["Welche Kontaktart soll am stärksten hervorgehoben werden?","kontakt_hervor"],["Wann sind Sie erreichbar?","zeiten"],
+        ["Wie schnell antworten Sie normalerweise?","antwortzeit"],["Soll ein Kontaktformular eingebaut werden?","formular_ja"],
+        ["Soll WhatsApp direkt verlinkt werden?","wa_link"],["Online-Terminbuchung gewünscht?","termin_booking"]
+      ],
+      seo: [
+        ["Welche Suchbegriffe sind besonders wichtig?","seo_keywords"],["Welche Städte oder Regionen besonders bewerben?","seo_staedte"],
+        ["Welche Mitbewerber-Webseiten sind relevant?","seo_wettbewerber"],["Welche Seiten soll die Webseite enthalten?","seo_seiten"],
+        ["Sind Standortseiten gewünscht?","seo_standortseiten"],["Sind Leistungs-Unterseiten gewünscht?","seo_leistungsseiten"],
+        ["Sind Blog / Ratgeberseiten gewünscht?","seo_blog"],["Sind Google Ads geplant?","seo_ads"]
+      ],
+      technik: [
+        ["Bestehender Hosting-Anbieter","tech_hosting"],["Domain bereits vorhanden?","tech_domain"],
+        ["Cookie-Consent / DSGVO-Banner gewünscht?","tech_cookie"],["Google Analytics / Tracking gewünscht?","tech_analytics"],
+        ["Mehrsprachigkeit gewünscht?","tech_sprachen"],["Besondere Funktionen gewünscht","tech_funktionen"]
+      ],
+      recht: [
+        ["Sind Impressumsdaten vorhanden?","recht_impressum"],["Sind Datenschutzhinweise vorhanden?","recht_datenschutz"],
+        ["Gibt es Handelsregisterdaten, USt-IdNr. oder weitere Pflichtangaben?","recht_pflicht"],
+        ["Gibt es rechtliche Hinweise, die berücksichtigt werden müssen?","recht_hinweise"]
+      ],
+      budget: [
+        ["Budget-Rahmen","budget"],["Wunsch-Termin für Go-Live","timeline"],
+        ["Gibt es einen festen Deadline-Grund?","deadline_grund"],["Laufende Betreuung / Wartung gewünscht?","wartung"]
+      ]
+    };
+
+    function v(id) {
+      const el = document.getElementById(id);
+      return (el?.value || '').trim();
+    }
+    function line(question, id) { return question + ': ' + v(id); }
+    function checklistLine(id, text) {
+      return '[' + (document.getElementById(id).checked ? 'x' : ' ') + '] ' + text;
+    }
+    function section(title, lines) {
+      return title + '\n' + '-'.repeat(title.length) + '\n' + lines.join('\n') + '\n\n';
+    }
+
+    function buildTxt() {
+      const parts = [];
+      parts.push('KUNDEN-FRAGEBOGEN FÜR DIE ERSTELLUNG EINER WEBSEITE');
+      parts.push('====================================================');
+      parts.push('');
+      parts.push('Bitte diesen Fragebogen möglichst vollständig ausfüllen.');
+      parts.push('Je genauer die Angaben, desto besser können Design, Inhalte, SEO,');
+      parts.push('FAQ-Bereiche, Kontaktmöglichkeiten und lokale Unterseiten erstellt werden.');
+      parts.push('');
+      parts.push('WICHTIG:');
+      parts.push('- Dieser Export wurde aus dem HTML-Fragebogen erzeugt.');
+      parts.push('- Farben wurden per Color-Picker mit Hex-Codes festgelegt.');
+      parts.push('- Dateien wie Logos, Bilder und Icons bitte separat mitsenden.');
+      parts.push('');
+
+      parts.push(section('1. UNTERNEHMENSDATEN', map.unternehmen.map(([q,id]) => line(q,id))));
+      parts.push(section('2. ZIELGRUPPE & POSITIONIERUNG', map.zielgruppe.map(([q,id]) => line(q,id))));
+      parts.push(section('3. GOOGLE BUSINESS & ONLINE PROFILE', map.google.map(([q,id]) => line(q,id))));
+      parts.push(section('4. LEISTUNGEN', map.leistungen.map(([q,id]) => line(q,id))));
+      parts.push(section('5. EINSATZGEBIET / STANDORTE / LOCAL SEO', map.gebiet.map(([q,id]) => line(q,id))));
+      parts.push(section('6. VERTRAUEN / REFERENZEN / MARKETING', map.vertrauen.map(([q,id]) => line(q,id))));
+
+      let brandingLines = map.branding.map(([q,id]) => line(q,id));
+      brandingLines.push('');
+      brandingLines.push('EMPFOHLENE DATEIVORGABEN:');
+      brandingLines.push('- Logo SVG: unter 200 KB | Logo WebP: mind. 800x800 px, unter 300 KB');
+      brandingLines.push('- Favicon: 512x512 px, unter 100 KB');
+      brandingLines.push('- OG / Social Bild: 1200x630 px, unter 300 KB');
+      brandingLines.push('- Hero-Bild: 1920x1080 px, unter 350 KB');
+      brandingLines.push('- Leistungsbilder: 1200x800 px, unter 250 KB');
+      brandingLines.push('- Icons: 512x512 px, unter 80 KB');
+      parts.push(section('7. BRANDING / DESIGN / FARBEN', brandingLines));
+
+      parts.push(section('8. BILDER / MEDIEN', map.bilder.map(([q,id]) => line(q,id))));
+      parts.push(section('9. FAQ / KUNDENFRAGEN / INHALTE', map.faq.map(([q,id]) => line(q,id))));
+      parts.push(section('10. KONTAKT & CONVERSION', map.conversion.map(([q,id]) => line(q,id))));
+      parts.push(section('11. SEO / WETTBEWERBER / STRUKTUR', map.seo.map(([q,id]) => line(q,id))));
+      parts.push(section('12. TECHNISCHE ANFORDERUNGEN', map.technik.map(([q,id]) => line(q,id))));
+      parts.push(section('13. RECHTLICHES', map.recht.map(([q,id]) => line(q,id))));
+      parts.push(section('14. BUDGET & ZEITPLAN', map.budget.map(([q,id]) => line(q,id))));
+
+      parts.push('15. ABSCHLIESSENDE CHECKLISTE');
+      parts.push('------------------------------');
+      parts.push(checklistLine('chk1','Kontaktangaben vollständig'));
+      parts.push(checklistLine('chk2','Zielgruppe definiert'));
+      parts.push(checklistLine('chk3','Leistungen vollständig'));
+      parts.push(checklistLine('chk4','Einsatzgebiet genannt'));
+      parts.push(checklistLine('chk5','Google Business Profil angegeben'));
+      parts.push(checklistLine('chk6','Social-Media-Profile angegeben'));
+      parts.push(checklistLine('chk7','Branding / Farben festgelegt'));
+      parts.push(checklistLine('chk8','Bilder / Logo / Icons vorbereitet'));
+      parts.push(checklistLine('chk9','Rechte an Bildern bestätigt'));
+      parts.push(checklistLine('chk10','FAQ / Kundenfragen ergänzt'));
+      parts.push(checklistLine('chk11','Rechtliche Angaben ergänzt'));
+      parts.push(checklistLine('chk12','Budget & Zeitplan besprochen'));
+      parts.push('');
+      return parts.join('\n');
+    }
+
+    function downloadTxt() {
+      const txt = buildTxt();
+      const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      const name = v('firmenname') ? v('firmenname').replace(/[^a-zA-Z0-9äöüÄÖÜß\-_ ]/g, '').replace(/\s+/g, '-') : 'kunden';
+      a.download = 'fragebogen-' + name + '.txt';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function resetForm() {
+      if (!confirm('Formular wirklich leeren? Alle Eingaben gehen verloren.')) return;
+      document.getElementById('qform').reset();
+      document.getElementById('baseColorPicker').value = '#1e3a5f';
+      document.getElementById('baseColorHex').value = '#1e3a5f';
+      document.getElementById('baseColorName').textContent = 'Dunkelblau';
+      setColor('Primary', '#1e3a5f');
+      setColor('Secondary', '#e8eef6');
+      setColor('Accent', '#e07b38');
+      updatePreview();
+      updateProgress();
+      renderPalettes();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ========== Init ==========
+    setColor('Primary', '#1e3a5f');
+    setColor('Secondary', '#e8eef6');
+    setColor('Accent', '#e07b38');
+    renderPalettes();
+    updatePreview();
+    updateProgress();
+  </script>
+</body>
+</html>
