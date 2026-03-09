@@ -148,9 +148,10 @@
     /* =============================================
        STEP INDICATOR DOTS
        ============================================= */
+    .steps-wrap { overflow: hidden; }
     .step-indicators {
       display: flex; gap: 8px; justify-content: center; align-items: center;
-      padding: 14px 16px 6px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+      padding: 14px 16px 6px;
     }
     .step-dot {
       width: 28px; height: 28px; flex: 0 0 28px; border-radius: 50%;
@@ -452,8 +453,13 @@
       .wrap { padding: 10px; }
       .hero { padding: 20px 16px; }
       .card { padding: 18px 14px; }
-      .step-indicators { gap: 6px; padding: 10px 10px 4px; }
-      .step-dot { width: 24px; height: 24px; flex: 0 0 24px; font-size: .6rem; }
+      .step-indicators {
+        gap: 4px; padding: 10px 8px 4px; justify-content: flex-start;
+        overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth; scrollbar-width: none;
+      }
+      .step-indicators::-webkit-scrollbar { display: none; }
+      .step-dot { width: 26px; height: 26px; flex: 0 0 26px; font-size: .65rem; }
       .nav-bar { padding: 10px 12px; }
       .nav-btn { padding: 10px 16px; font-size: .88rem; }
       .nav-bar .step-label { font-size: .78rem; }
@@ -1385,9 +1391,19 @@
         card.classList.add('active');
       }
       // Update step dots
-      document.querySelectorAll('.step-dot').forEach((dot, i) => {
+      const dots = document.querySelectorAll('.step-dot');
+      dots.forEach((dot, i) => {
         dot.classList.toggle('active', i + 1 === step);
       });
+      // Scroll active dot into view on mobile
+      const activeDot = dots[step - 1];
+      if (activeDot) {
+        const container = activeDot.parentElement;
+        const dotLeft = activeDot.offsetLeft;
+        const dotWidth = activeDot.offsetWidth;
+        const containerWidth = container.clientWidth;
+        container.scrollLeft = dotLeft - (containerWidth / 2) + (dotWidth / 2);
+      }
       // Update nav
       currentStep = step;
       updateNav();
