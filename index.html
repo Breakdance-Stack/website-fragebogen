@@ -1688,6 +1688,7 @@
     // ========== Reset ==========
     function resetForm() {
       if (!confirm('Formular wirklich leeren? Alle Eingaben gehen verloren.')) return;
+      clearStorage();
       document.getElementById('qform').reset();
       document.getElementById('baseColorPicker').value = '#1e3a5f';
       document.getElementById('baseColorHex').value = '#1e3a5f';
@@ -1702,19 +1703,90 @@
       showStep(1);
     }
 
+    // ========== LocalStorage Auto-Save ==========
+    const STORAGE_KEY = 'fragebogen_data';
+    const STORAGE_STEP_KEY = 'fragebogen_step';
+
+    function saveToStorage() {
+      const data = {};
+      document.querySelectorAll('#qform input, #qform textarea, #qform select').forEach(el => {
+        if (!el.id) return;
+        if (el.type === 'checkbox') { data[el.id] = el.checked; }
+        else if (el.type !== 'color') { data[el.id] = el.value; }
+      });
+      // Save color picker values separately
+      data['_colorPrimary'] = document.getElementById('colorPrimary').value;
+      data['_colorSecondary'] = document.getElementById('colorSecondary').value;
+      data['_colorAccent'] = document.getElementById('colorAccent').value;
+      data['_baseColor'] = document.getElementById('baseColorPicker').value;
+      data['_currentStep'] = currentStep;
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+    }
+
+    function loadFromStorage() {
+      let data;
+      try { data = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) {}
+      if (!data) return false;
+
+      let hasData = false;
+      document.querySelectorAll('#qform input, #qform textarea, #qform select').forEach(el => {
+        if (!el.id || !(el.id in data)) return;
+        if (el.type === 'checkbox') { el.checked = data[el.id]; }
+        else if (el.type === 'hidden') { el.value = data[el.id]; }
+        else if (el.type !== 'color') { el.value = data[el.id]; if (data[el.id]) hasData = true; }
+      });
+
+      // Restore colors
+      if (data['_baseColor']) {
+        document.getElementById('baseColorPicker').value = data['_baseColor'];
+        document.getElementById('baseColorHex').value = data['_baseColor'];
+        document.getElementById('baseColorName').textContent = getColorName(data['_baseColor']);
+      }
+      if (data['_colorPrimary']) setColor('Primary', data['_colorPrimary']);
+      if (data['_colorSecondary']) setColor('Secondary', data['_colorSecondary']);
+      if (data['_colorAccent']) setColor('Accent', data['_colorAccent']);
+
+      // Restore step
+      if (data['_currentStep'] && data['_currentStep'] > 0) {
+        currentStep = data['_currentStep'];
+      }
+
+      return hasData;
+    }
+
+    function clearStorage() {
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+    }
+
+    // Auto-save on every input/change
+    document.getElementById('qform').addEventListener('input', saveToStorage);
+    document.getElementById('qform').addEventListener('change', saveToStorage);
+
     // ========== Init ==========
-    setColor('Primary', '#1e3a5f');
-    setColor('Secondary', '#e8eef6');
-    setColor('Accent', '#e07b38');
+    const hadSavedData = loadFromStorage();
+    if (!hadSavedData) {
+      setColor('Primary', '#1e3a5f');
+      setColor('Secondary', '#e8eef6');
+      setColor('Accent', '#e07b38');
+    }
     renderPalettes();
     updatePreview();
     updateProgress();
+    updateCompletionRings();
 
-    // Hide wizard elements initially
-    document.getElementById('cardNav').style.display = 'none';
-    document.getElementById('stepsWrap').style.display = 'none';
-    // Hide all cards initially
-    document.querySelectorAll('.card').forEach(c => { c.style.display = 'none'; });
+    // If saved data exists, skip hero and go to saved step
+    if (hadSavedData && currentStep > 0) {
+      document.querySelector('.hero').style.display = 'none';
+      document.getElementById('cardNav').style.display = 'flex';
+      document.getElementById('stepsWrap').style.display = 'block';
+      showStep(currentStep);
+    } else {
+      // Hide wizard elements initially
+      document.getElementById('cardNav').style.display = 'none';
+      document.getElementById('stepsWrap').style.display = 'none';
+      // Hide all cards initially
+      document.querySelectorAll('.card').forEach(c => { c.style.display = 'none'; });
+    }
   </script>
 </body>
 </html>
