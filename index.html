@@ -277,17 +277,22 @@
     .tip { position: relative; border-bottom: 1px dashed #8899aa; cursor: help; }
     .tip:hover::after {
       content: attr(data-tip);
-      position: absolute; bottom: calc(100% + 8px); left: 50%;
+      position: absolute; top: calc(100% + 8px); left: 50%;
       transform: translateX(-50%);
       background: #1a2433; color: #fff; padding: 8px 14px;
       border-radius: 10px; font-size: .82rem; white-space: normal;
-      z-index: 50; pointer-events: none; max-width: 280px;
+      z-index: 50; pointer-events: none; max-width: 280px; min-width: 180px;
       box-shadow: 0 4px 16px rgba(0,0,0,.2);
+      line-height: 1.4;
     }
     .tip:hover::before {
-      content: ''; position: absolute; bottom: calc(100% + 2px); left: 50%;
+      content: ''; position: absolute; top: calc(100% + 2px); left: 50%;
       transform: translateX(-50%);
-      border: 6px solid transparent; border-top-color: #1a2433; z-index: 50;
+      border: 6px solid transparent; border-bottom-color: #1a2433; z-index: 50;
+    }
+    @media (max-width: 600px) {
+      .tip:hover::after { left: 0; transform: none; max-width: 240px; }
+      .tip:hover::before { left: 16px; transform: none; }
     }
 
     /* =============================================
