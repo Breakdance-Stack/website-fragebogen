@@ -1781,30 +1781,53 @@
     const tipBubble = document.createElement('div');
     tipBubble.className = 'tip-bubble';
     document.body.appendChild(tipBubble);
+    let activeTip = null;
 
-    document.addEventListener('pointerenter', function(e) {
-      const tip = e.target.closest('.tip');
+    function showTip(tip) {
       if (!tip || !tip.dataset.tip) return;
+      activeTip = tip;
       tipBubble.textContent = tip.dataset.tip;
       tipBubble.classList.add('visible');
       const rect = tip.getBoundingClientRect();
-      const bw = tipBubble.offsetWidth;
-      const bh = tipBubble.offsetHeight;
       // Position below the element
       let top = rect.bottom + 10;
-      let left = rect.left + rect.width / 2 - bw / 2;
-      // Keep within viewport horizontally
+      let left = rect.left + rect.width / 2 - tipBubble.offsetWidth / 2;
+      const bw = tipBubble.offsetWidth;
+      // Keep within viewport
       if (left < 8) left = 8;
       if (left + bw > window.innerWidth - 8) left = window.innerWidth - bw - 8;
       // Arrow position
       const arrowLeft = Math.max(12, Math.min(bw - 18, rect.left + rect.width / 2 - left));
       tipBubble.style.cssText = 'top:' + top + 'px;left:' + left + 'px';
       tipBubble.style.setProperty('--arrow', arrowLeft + 'px');
+    }
+
+    function hideTip() {
+      tipBubble.classList.remove('visible');
+      activeTip = null;
+    }
+
+    // Desktop: hover
+    document.addEventListener('pointerenter', function(e) {
+      if (e.pointerType === 'touch') return;
+      showTip(e.target.closest('.tip'));
+    }, true);
+    document.addEventListener('pointerleave', function(e) {
+      if (e.pointerType === 'touch') return;
+      if (e.target.closest('.tip')) hideTip();
     }, true);
 
-    document.addEventListener('pointerleave', function(e) {
-      if (e.target.closest('.tip')) tipBubble.classList.remove('visible');
-    }, true);
+    // Mobile: tap to toggle, tap anywhere else to close
+    document.addEventListener('click', function(e) {
+      const tip = e.target.closest('.tip');
+      if (tip) {
+        e.preventDefault();
+        if (activeTip === tip) { hideTip(); }
+        else { showTip(tip); }
+      } else if (activeTip) {
+        hideTip();
+      }
+    });
 
     // ========== Init ==========
     const hadSavedData = loadFromStorage();
