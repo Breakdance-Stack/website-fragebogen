@@ -71,6 +71,9 @@
   </script>
 
   <style>
+    /* =============================================
+       DESIGN TOKENS
+       ============================================= */
     :root {
       --bg: #f4f7fb;
       --card: #ffffff;
@@ -85,29 +88,118 @@
       --radius: 18px;
       --shadow: 0 10px 30px rgba(17,24,39,.08);
     }
+
+    /* =============================================
+       RESET & BASE
+       ============================================= */
     * { box-sizing: border-box; }
+    html, body { overflow-x: hidden; }
     body {
       margin: 0;
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       background: linear-gradient(180deg, #f4f7fb 0%, #e8eef6 100%);
       color: var(--text);
       line-height: 1.55;
+      padding-bottom: 72px;
     }
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 16px; }
+
+    /* =============================================
+       KEYFRAME ANIMATIONS
+       ============================================= */
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(30px) rotate(1.5deg) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) rotate(0) scale(1); }
+    }
+    @keyframes floatOut {
+      from { opacity: 1; transform: translateY(0) rotate(0) scale(1); }
+      to { opacity: 0; transform: translateY(-20px) rotate(-1deg) scale(0.98); }
+    }
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    @keyframes celebrate {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.04) rotate(0.5deg); }
+      60% { transform: scale(0.98) rotate(-0.3deg); }
+      100% { transform: scale(1) rotate(0); }
+    }
+
+    /* =============================================
+       PROGRESS BAR (sticky top)
+       ============================================= */
+    .progress-bar {
+      position: sticky; top: 0; z-index: 100; background: var(--card);
+      border-bottom: 1px solid var(--line);
+      padding: 10px 16px; display: flex; align-items: center; gap: 14px;
+    }
+    .progress-track {
+      flex: 1; height: 8px; background: #e5e7eb; border-radius: 99px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 99px; transition: width .3s; width: 0;
+    }
+    .progress-text {
+      font-size: .85rem; font-weight: 700; color: var(--primary); min-width: 36px; text-align: right;
+    }
+
+    /* =============================================
+       STEP INDICATOR DOTS
+       ============================================= */
+    .step-indicators {
+      display: flex; gap: 8px; justify-content: center; align-items: center;
+      padding: 14px 16px 6px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    }
+    .step-dot {
+      width: 28px; height: 28px; flex: 0 0 28px; border-radius: 50%;
+      border: 2px solid var(--line); background: var(--card);
+      display: grid; place-items: center; cursor: pointer;
+      font-size: .7rem; font-weight: 700; color: var(--muted);
+      transition: all .2s;
+    }
+    .step-dot:hover { border-color: var(--accent); color: var(--accent); }
+    .step-dot.active {
+      border-color: var(--accent); background: var(--accent); color: #fff;
+      box-shadow: 0 0 0 4px rgba(37,99,235,.15);
+    }
+    .step-dot.completed {
+      border-color: var(--ok); background: var(--ok); color: #fff;
+      animation: gentleFloat 3s ease-in-out infinite;
+      box-shadow: 0 0 8px rgba(22,163,74,.25);
+    }
+
+    /* =============================================
+       HERO SECTION
+       ============================================= */
     .hero, .card {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 24px;
       box-shadow: var(--shadow);
     }
-    .hero { padding: 32px; margin: 10px 0 22px; }
-    .hero h1 { margin: 0 0 8px; font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.15; color: var(--primary); }
+    .hero { padding: 28px 24px; margin: 10px 0 22px; }
+    .hero h1 {
+      margin: 0 0 8px; font-size: clamp(1.8rem, 3vw, 2.6rem);
+      line-height: 1.15; color: var(--primary);
+    }
     .hero p { margin: 0; color: var(--muted); }
     .badge {
       display: inline-block; background: var(--accent-light); color: var(--primary);
       font-weight: 700; padding: 8px 14px; border-radius: 999px; font-size: .88rem; margin-bottom: 14px;
     }
     .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .btn-start {
+      background: var(--accent); color: #fff; font-size: 1.1rem; padding: 16px 32px;
+      border-radius: 16px; font-weight: 800; border: none; cursor: pointer;
+      transition: all .2s; box-shadow: 0 4px 16px rgba(37,99,235,.25);
+    }
+    .btn-start:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(37,99,235,.35); }
+
+    /* =============================================
+       BUTTONS
+       ============================================= */
     button {
       appearance: none; border: none; border-radius: 14px; padding: 14px 20px;
       font: inherit; font-weight: 800; cursor: pointer; transition: all .15s;
@@ -117,15 +209,50 @@
     .btn-primary:hover { background: #15304f; }
     .btn-secondary { background: var(--primary-light); color: var(--primary); border: 1px solid #c9dafc; }
     .btn-secondary:hover { background: #dce6f4; }
+
+    /* =============================================
+       CARDS — WIZARD ONE-AT-A-TIME
+       ============================================= */
     .grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
-    .card { padding: 24px; }
+    .card { padding: 24px; display: none; }
+    .card.active {
+      display: block;
+      animation: floatIn 0.5s ease-out;
+    }
+    .card.leaving {
+      animation: floatOut 0.3s ease-in forwards;
+    }
+    .card.celebrating {
+      animation: celebrate 0.5s ease-out;
+    }
+
+    /* Card completion ring */
     .section-title { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; }
     .num {
       width: 36px; height: 36px; flex: 0 0 36px; border-radius: 50%;
-      display: grid; place-items: center; background: var(--accent-light); color: var(--primary); font-weight: 900; font-size: .95rem;
+      display: grid; place-items: center; background: var(--accent-light);
+      color: var(--primary); font-weight: 900; font-size: .95rem;
+      position: relative;
+    }
+    .completion-ring {
+      position: absolute; top: -4px; left: -4px;
+      width: 44px; height: 44px;
+    }
+    .completion-ring circle {
+      fill: none; stroke-width: 2.5;
+    }
+    .completion-ring .ring-bg { stroke: var(--line); }
+    .completion-ring .ring-fill {
+      stroke: var(--ok); stroke-linecap: round;
+      transition: stroke-dashoffset .4s ease;
+      transform: rotate(-90deg); transform-origin: center;
     }
     h2 { margin: 0 0 4px; font-size: 1.3rem; color: var(--primary); }
     .sub { color: var(--muted); margin: 0; font-size: .93rem; }
+
+    /* =============================================
+       FORM FIELDS
+       ============================================= */
     .fields { display: grid; grid-template-columns: 1fr; gap: 14px; }
     @media (min-width: 900px) {
       .fields.two { grid-template-columns: 1fr 1fr; }
@@ -134,25 +261,37 @@
     label { display: block; font-weight: 700; margin: 0 0 6px; font-size: .95rem; }
     .hint { display: block; color: var(--muted); font-size: .88rem; margin-top: 6px; }
     input, textarea, select {
-      width: 100%; padding: 13px 14px; border-radius: 14px; border: 1px solid var(--line);
-      background: #fff; color: var(--text); font: inherit; outline: none; transition: border-color .15s, box-shadow .15s;
+      width: 100%; max-width: 100%; padding: 13px 14px; border-radius: 14px;
+      border: 1px solid var(--line); background: #fff; color: var(--text);
+      font: inherit; outline: none; transition: border-color .15s, box-shadow .15s;
     }
     textarea { min-height: 100px; resize: vertical; }
     input:focus, textarea:focus, select:focus {
       border-color: var(--accent); box-shadow: 0 0 0 4px rgba(37,99,235,.1);
     }
-    .specs {
-      width: 100%; border-collapse: collapse; margin-top: 12px; border: 1px solid var(--line);
-      border-radius: 16px; overflow: hidden; font-size: .92rem;
-    }
-    .specs th, .specs td { padding: 11px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
-    .specs th { background: var(--primary-light); color: var(--primary); font-weight: 700; }
-    .note {
-      background: #f8fafc; border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; color: var(--muted); font-size: .93rem;
-    }
-    .small { font-size: .9rem; color: var(--muted); }
 
-    /* === Color Picker Section === */
+    /* =============================================
+       TOOLTIP SYSTEM
+       ============================================= */
+    .tip { position: relative; border-bottom: 1px dashed #8899aa; cursor: help; }
+    .tip:hover::after {
+      content: attr(data-tip);
+      position: absolute; bottom: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%);
+      background: #1a2433; color: #fff; padding: 8px 14px;
+      border-radius: 10px; font-size: .82rem; white-space: normal;
+      z-index: 50; pointer-events: none; max-width: 280px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.2);
+    }
+    .tip:hover::before {
+      content: ''; position: absolute; bottom: calc(100% + 2px); left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent; border-top-color: #1a2433; z-index: 50;
+    }
+
+    /* =============================================
+       COLOR PICKER SECTION
+       ============================================= */
     .color-section { margin-top: 16px; }
     .color-row {
       display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px;
@@ -162,7 +301,7 @@
       border: 1px solid var(--line); border-radius: 18px; padding: 18px; background: #fff;
     }
     .color-picker-wrap {
-      display: flex; gap: 12px; align-items: center; margin-top: 10px;
+      display: flex; gap: 12px; align-items: center; margin-top: 10px; flex-wrap: wrap;
     }
     .color-picker-wrap input[type="color"] {
       width: 56px; height: 56px; border: 2px solid var(--line); border-radius: 14px;
@@ -171,14 +310,16 @@
     .color-picker-wrap input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
     .color-picker-wrap input[type="color"]::-webkit-color-swatch { border: none; border-radius: 10px; }
     .color-hex-input {
-      width: 110px !important; font-family: monospace; font-size: 1rem; text-transform: uppercase;
-      letter-spacing: .5px;
+      width: 110px !important; font-family: monospace; font-size: 1rem;
+      text-transform: uppercase; letter-spacing: .5px;
     }
     .color-name-display {
       font-size: .88rem; color: var(--muted); margin-top: 4px;
     }
 
-    /* Palette Suggestions */
+    /* =============================================
+       PALETTE SUGGESTIONS
+       ============================================= */
     .palette-section { margin-top: 20px; }
     .palette-section h3 { margin: 0 0 12px; font-size: 1.05rem; color: var(--primary); }
     .palette-tabs {
@@ -192,13 +333,16 @@
     .palette-tab:hover { background: #d0ddf0; }
     .palette-tab.active { background: var(--primary); color: #fff; }
     .palette-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px;
     }
     .palette-card {
       border: 2px solid var(--line); border-radius: 16px; padding: 14px; cursor: pointer;
       transition: all .15s; background: #fff;
     }
-    .palette-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(37,99,235,.12); }
+    .palette-card:hover {
+      border-color: var(--accent); transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(37,99,235,.12);
+    }
     .palette-card.active { border-color: var(--accent); background: #f0f6ff; }
     .palette-colors {
       display: flex; gap: 0; border-radius: 10px; overflow: hidden; height: 44px; margin-bottom: 10px;
@@ -207,7 +351,9 @@
     .palette-label { font-weight: 700; font-size: .88rem; }
     .palette-desc { font-size: .82rem; color: var(--muted); margin-top: 2px; }
 
-    /* Preview */
+    /* =============================================
+       PREVIEW
+       ============================================= */
     .preview {
       margin-top: 20px; border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
     }
@@ -229,34 +375,98 @@
     .preview-nav span { opacity: .8; cursor: default; }
     .preview-nav span:first-child { opacity: 1; }
     .preview-footer {
-      padding: 12px 18px; color: #fff; font-size: .85rem; opacity: .85; text-align: center;
-      transition: background .3s;
+      padding: 12px 18px; color: #fff; font-size: .85rem; opacity: .85;
+      text-align: center; transition: background .3s;
     }
 
-    /* Checklist */
+    /* =============================================
+       SPECS TABLE
+       ============================================= */
+    .specs-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 12px; }
+    .specs {
+      width: 100%; border-collapse: collapse; border: 1px solid var(--line);
+      border-radius: 16px; overflow: hidden; font-size: .92rem; min-width: 480px;
+    }
+    .specs th, .specs td {
+      padding: 11px 14px; border-bottom: 1px solid var(--line);
+      text-align: left; vertical-align: top;
+    }
+    .specs th { background: var(--primary-light); color: var(--primary); font-weight: 700; }
+
+    /* =============================================
+       CHECKLIST
+       ============================================= */
     .checklist { display: grid; gap: 8px; }
     .check {
-      display: flex; gap: 10px; align-items: center; padding: 12px; border: 1px solid var(--line);
-      border-radius: 14px; background: #fbfdff; cursor: pointer; transition: background .1s;
+      display: flex; gap: 10px; align-items: center; padding: 12px;
+      border: 1px solid var(--line); border-radius: 14px;
+      background: #fbfdff; cursor: pointer; transition: background .1s;
     }
     .check:hover { background: #f0f4fb; }
-    .check input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer; }
+    .check input[type="checkbox"] {
+      width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer;
+    }
 
-    /* Progress */
-    .progress-bar {
-      position: sticky; top: 0; z-index: 100; background: var(--card); border-bottom: 1px solid var(--line);
-      padding: 10px 24px; display: flex; align-items: center; gap: 14px;
+    /* =============================================
+       NOTE & UTILITY CLASSES
+       ============================================= */
+    .note {
+      background: #f8fafc; border: 1px solid var(--line); border-radius: 16px;
+      padding: 14px 16px; color: var(--muted); font-size: .93rem;
     }
-    .progress-track {
-      flex: 1; height: 8px; background: #e5e7eb; border-radius: 99px; overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent));
-      border-radius: 99px; transition: width .3s; width: 0;
-    }
-    .progress-text { font-size: .85rem; font-weight: 700; color: var(--primary); min-width: 36px; text-align: right; }
-
+    .small { font-size: .9rem; color: var(--muted); }
     .footer-space { height: 32px; }
+
+    /* =============================================
+       BOTTOM NAVIGATION BAR
+       ============================================= */
+    .nav-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      background: var(--card); border-top: 1px solid var(--line);
+      box-shadow: 0 -4px 20px rgba(17,24,39,.08);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 20px; gap: 12px;
+    }
+    .nav-bar .step-label {
+      font-size: .88rem; font-weight: 700; color: var(--muted);
+      white-space: nowrap;
+    }
+    .nav-btn {
+      padding: 12px 24px; border-radius: 14px; font-weight: 800;
+      font-size: .95rem; border: none; cursor: pointer; transition: all .15s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover { transform: translateY(-1px); }
+    .nav-btn.prev { background: var(--primary-light); color: var(--primary); }
+    .nav-btn.prev:hover { background: #d0ddf0; }
+    .nav-btn.next { background: var(--primary); color: #fff; }
+    .nav-btn.next:hover { background: #15304f; }
+    .nav-btn.download { background: var(--ok); color: #fff; }
+    .nav-btn.download:hover { background: #15803d; }
+    .nav-btn.hidden { visibility: hidden; }
+
+    /* =============================================
+       RESPONSIVE — MOBILE FIRST ADJUSTMENTS
+       ============================================= */
+    @media (max-width: 600px) {
+      .wrap { padding: 10px; }
+      .hero { padding: 20px 16px; }
+      .card { padding: 18px 14px; }
+      .step-indicators { gap: 6px; padding: 10px 10px 4px; }
+      .step-dot { width: 24px; height: 24px; flex: 0 0 24px; font-size: .6rem; }
+      .nav-bar { padding: 10px 12px; }
+      .nav-btn { padding: 10px 16px; font-size: .88rem; }
+      .nav-bar .step-label { font-size: .78rem; }
+      .palette-grid { grid-template-columns: 1fr; }
+      .color-picker-wrap { flex-direction: row; flex-wrap: wrap; }
+      .preview-nav { gap: 10px; font-size: .8rem; }
+      .specs { min-width: 400px; }
+    }
+
+    @media (min-width: 601px) and (max-width: 899px) {
+      .wrap { padding: 16px; }
+      .palette-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+    }
   </style>
 </head>
 <body>
@@ -267,140 +477,228 @@
   </div>
 
   <div class="wrap">
+    <!-- Hero Section -->
     <section class="hero">
       <div class="badge">Professioneller Website-Fragebogen</div>
-      <h1>Projekt-Briefing für Ihre neue Webseite</h1>
-      <p>Füllen Sie diesen Fragebogen aus, damit wir Ihre Webseite genau nach Ihren Vorstellungen erstellen können. Alle Angaben werden als TXT-Datei exportiert.</p>
+      <h1>Projekt-Briefing f&uuml;r Ihre neue Webseite</h1>
+      <p>F&uuml;llen Sie diesen Fragebogen aus, damit wir Ihre Webseite genau nach Ihren Vorstellungen erstellen k&ouml;nnen. Alle Angaben werden als TXT-Datei exportiert.</p>
       <div class="actions">
+        <button class="btn-primary btn-start" type="button" onclick="startQuiz()">Fragebogen starten</button>
         <button class="btn-primary" type="button" onclick="downloadTxt()">TXT herunterladen</button>
         <button class="btn-secondary" type="button" onclick="resetForm()">Formular leeren</button>
       </div>
     </section>
 
+    <!-- Step Indicator -->
+    <div class="steps-wrap" id="stepsWrap">
+      <div class="step-indicators" id="stepsNav">
+        <div class="step-dot" data-step="1" onclick="goToStep(1)"><span>1</span></div>
+        <div class="step-dot" data-step="2" onclick="goToStep(2)"><span>2</span></div>
+        <div class="step-dot" data-step="3" onclick="goToStep(3)"><span>3</span></div>
+        <div class="step-dot" data-step="4" onclick="goToStep(4)"><span>4</span></div>
+        <div class="step-dot" data-step="5" onclick="goToStep(5)"><span>5</span></div>
+        <div class="step-dot" data-step="6" onclick="goToStep(6)"><span>6</span></div>
+        <div class="step-dot" data-step="7" onclick="goToStep(7)"><span>7</span></div>
+        <div class="step-dot" data-step="8" onclick="goToStep(8)"><span>8</span></div>
+        <div class="step-dot" data-step="9" onclick="goToStep(9)"><span>9</span></div>
+        <div class="step-dot" data-step="10" onclick="goToStep(10)"><span>10</span></div>
+        <div class="step-dot" data-step="11" onclick="goToStep(11)"><span>11</span></div>
+        <div class="step-dot" data-step="12" onclick="goToStep(12)"><span>12</span></div>
+        <div class="step-dot" data-step="13" onclick="goToStep(13)"><span>13</span></div>
+        <div class="step-dot" data-step="14" onclick="goToStep(14)"><span>14</span></div>
+        <div class="step-dot" data-step="15" onclick="goToStep(15)"><span>15</span></div>
+      </div>
+    </div>
+
+    <!-- Form -->
     <form id="qform" class="grid">
+
       <!-- 1. Unternehmensdaten -->
-      <section class="card">
-        <div class="section-title"><div class="num">1</div><div><h2>Unternehmensdaten</h2><p class="sub">Basisdaten für Kontakt, Footer, Schema und Vertrauenssignale.</p></div></div>
-        <div class="fields two">
-          <div><label>Firmenname</label><input id="firmenname"></div>
-          <div><label>Ansprechpartner / Inhaber</label><input id="ansprechpartner"></div>
-          <div><label>Telefonnummer</label><input id="telefon" type="tel"></div>
-          <div><label>E-Mail</label><input id="email" type="email"></div>
-          <div><label>WhatsApp Nummer</label><input id="whatsapp" type="tel"></div>
-          <div><label>Bestehende Webseite / Domain</label><input id="webseite" type="url" placeholder="https://..."></div>
-          <div><label>Gründungsjahr</label><input id="gruendung" type="number" min="1800" max="2026" placeholder="z.B. 2005"></div>
-          <div><label>Rechtsform</label><select id="rechtsform"><option></option><option>Einzelunternehmen</option><option>GbR</option><option>GmbH</option><option>UG (haftungsbeschränkt)</option><option>OHG</option><option>KG</option><option>AG</option><option>e.K.</option><option>Freiberufler</option><option>Sonstige</option></select></div>
-          <div><label>Hauptstadt / Hauptregion</label><input id="hauptregion"></div>
-          <div><label>Weitere Niederlassungen</label><input id="niederlassungen"></div>
-          <div><label>Anzahl Mitarbeiter</label><input id="mitarbeiter" placeholder="z.B. 5-10"></div>
-          <div><label>Branche</label><input id="branche" placeholder="z.B. Handwerk, IT, Gastronomie"></div>
+      <section class="card" data-step="1" id="step-1">
+        <div class="section-title">
+          <div class="num">
+            1
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="1"/>
+            </svg>
+          </div>
+          <div><h2>Unternehmensdaten</h2><p class="sub">Basisdaten f&uuml;r Kontakt, <span class="tip" data-tip="Der Abschlussbereich am Ende jeder Seite mit Kontaktdaten, Links und rechtlichen Infos">Footer</span>, <span class="tip" data-tip="Maschinenlesbare Daten, die Google helfen Ihre Inhalte zu verstehen">Schema</span> und <span class="tip" data-tip="Vertrauenselemente wie Bewertungen, Zertifikate oder Erfahrungsjahre">Trust-Signale</span>.</p></div>
         </div>
-        <div style="margin-top:14px"><label>Geschäftsadresse</label><textarea id="adresse" rows="3"></textarea></div>
+        <div class="fields two">
+          <div><label>Firmenname</label><input id="firmenname" placeholder="z.B. M&uuml;ller Geb&auml;udereinigung GmbH"></div>
+          <div><label>Ansprechpartner / Inhaber</label><input id="ansprechpartner" placeholder="z.B. Max M&uuml;ller"></div>
+          <div><label>Telefonnummer</label><input id="telefon" type="tel" placeholder="z.B. +49 89 12345678"></div>
+          <div><label>E-Mail</label><input id="email" type="email" placeholder="z.B. info@muster-firma.de"></div>
+          <div><label>WhatsApp Nummer</label><input id="whatsapp" type="tel" placeholder="z.B. +49 170 1234567"></div>
+          <div><label>Bestehende Webseite / Domain</label><input id="webseite" type="url" placeholder="z.B. https://www.muster-firma.de"></div>
+          <div><label>Gr&uuml;ndungsjahr</label><input id="gruendung" type="number" min="1800" max="2026" placeholder="z.B. 2010"></div>
+          <div><label>Rechtsform</label><select id="rechtsform"><option></option><option>Einzelunternehmen</option><option>GbR</option><option>GmbH</option><option>UG (haftungsbeschr&auml;nkt)</option><option>OHG</option><option>KG</option><option>AG</option><option>e.K.</option><option>Freiberufler</option><option>Sonstige</option></select></div>
+          <div><label>Hauptstadt / Hauptregion</label><input id="hauptregion" placeholder="z.B. M&uuml;nchen und Umgebung"></div>
+          <div><label>Weitere Niederlassungen</label><input id="niederlassungen" placeholder="z.B. Dachau, Freising, Erding"></div>
+          <div><label>Anzahl Mitarbeiter</label><input id="mitarbeiter" placeholder="z.B. 8-12"></div>
+          <div><label>Branche</label><input id="branche" placeholder="z.B. Geb&auml;udereinigung, Handwerk, IT"></div>
+        </div>
+        <div style="margin-top:14px"><label>Gesch&auml;ftsadresse</label><textarea id="adresse" rows="3" placeholder="z.B. Musterstra&szlig;e 42, 80331 M&uuml;nchen"></textarea></div>
       </section>
 
-      <!-- 2. Zielgruppe & Positionierung (NEU) -->
-      <section class="card">
-        <div class="section-title"><div class="num">2</div><div><h2>Zielgruppe & Positionierung</h2><p class="sub">Definiert Ansprache, Design und Inhalte der Webseite.</p></div></div>
+      <!-- 2. Zielgruppe & Positionierung -->
+      <section class="card" data-step="2" id="step-2">
+        <div class="section-title">
+          <div class="num">
+            2
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="2"/>
+            </svg>
+          </div>
+          <div><h2>Zielgruppe &amp; Positionierung</h2><p class="sub">Definiert Ansprache, Design und Inhalte der Webseite.</p></div>
+        </div>
         <div class="fields two">
-          <div><label>Wer ist Ihre Hauptzielgruppe?</label><textarea id="zielgruppe" placeholder="z.B. Privatkunden 30-55 Jahre, Eigenheimbesitzer"></textarea></div>
-          <div><label>Gibt es eine sekundäre Zielgruppe?</label><textarea id="zielgruppe2" placeholder="z.B. Hausverwaltungen, Gewerbetreibende"></textarea></div>
-          <div><label>Wie sollen Sie von Kunden wahrgenommen werden?</label><textarea id="wahrnehmung" placeholder="z.B. kompetent, nahbar, premium"></textarea></div>
-          <div><label>Welche Tonalität soll die Webseite haben?</label><select id="tonalitaet"><option></option><option>Professionell & seriös</option><option>Freundlich & nahbar</option><option>Modern & dynamisch</option><option>Traditionell & vertrauenswürdig</option><option>Premium & exklusiv</option><option>Locker & unkompliziert</option></select></div>
-          <div><label>Soll die Ansprache „Sie" oder „Du" sein?</label><select id="ansprache"><option></option><option>Sie (formell)</option><option>Du (informell)</option><option>Gemischt / egal</option></select></div>
-          <div><label>Was suchen Ihre Kunden, wenn sie auf Ihre Webseite kommen?</label><textarea id="kundensuche" placeholder="z.B. schnelle Hilfe bei Rohrbruch, Preise vergleichen"></textarea></div>
+          <div><label>Wer ist Ihre Hauptzielgruppe?</label><textarea id="zielgruppe" placeholder="z.B. Privatkunden 30-60 Jahre, Eigenheimbesitzer"></textarea></div>
+          <div><label>Gibt es eine sekund&auml;re Zielgruppe?</label><textarea id="zielgruppe2" placeholder="z.B. Hausverwaltungen, Gewerbetreibende"></textarea></div>
+          <div><label>Wie sollen Sie von Kunden wahrgenommen werden?</label><textarea id="wahrnehmung" placeholder="z.B. kompetent, nahbar, zuverl&auml;ssig, premium"></textarea></div>
+          <div><label>Welche Tonalit&auml;t soll die Webseite haben?</label><select id="tonalitaet"><option></option><option>Professionell &amp; seri&ouml;s</option><option>Freundlich &amp; nahbar</option><option>Modern &amp; dynamisch</option><option>Traditionell &amp; vertrauensw&uuml;rdig</option><option>Premium &amp; exklusiv</option><option>Locker &amp; unkompliziert</option></select></div>
+          <div><label>Soll die Ansprache &bdquo;Sie&ldquo; oder &bdquo;Du&ldquo; sein?</label><select id="ansprache"><option></option><option>Sie (formell)</option><option>Du (informell)</option><option>Gemischt / egal</option></select></div>
+          <div><label>Was suchen Ihre Kunden, wenn sie auf Ihre Webseite kommen?</label><textarea id="kundensuche" placeholder="z.B. schnelle Hilfe, Preise vergleichen, Erfahrungsberichte lesen"></textarea></div>
         </div>
       </section>
 
       <!-- 3. Google Business & Online Profile -->
-      <section class="card">
-        <div class="section-title"><div class="num">3</div><div><h2>Google Business & Online Profile</h2><p class="sub">Sichtbarkeit, Vertrauenssignale und Verlinkungen.</p></div></div>
+      <section class="card" data-step="3" id="step-3">
+        <div class="section-title">
+          <div class="num">
+            3
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="3"/>
+            </svg>
+          </div>
+          <div><h2><span class="tip" data-tip="Ihr Unternehmensprofil bei Google Maps mit Bewertungen und Kontaktdaten">Google Business</span> &amp; Online Profile</h2><p class="sub">Sichtbarkeit, <span class="tip" data-tip="Vertrauenselemente wie Bewertungen, Zertifikate oder Erfahrungsjahre">Trust-Signale</span> und Verlinkungen.</p></div>
+        </div>
         <div class="fields two">
-          <div><label>Google Business Profil vorhanden?</label><select id="gbp_vorhanden"><option></option><option>ja</option><option>nein</option></select></div>
-          <div><label>Link zum Google Business Profil</label><input id="gbp_link" type="url"></div>
-          <div><label>Name des Profils bei Google</label><input id="gbp_name"></div>
-          <div><label>Anzahl Bewertungen</label><input id="gbp_reviews" type="number" min="0"></div>
+          <div><label><span class="tip" data-tip="Ihr Unternehmensprofil bei Google Maps mit Bewertungen und Kontaktdaten">Google Business Profil</span> vorhanden?</label><select id="gbp_vorhanden"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Link zum <span class="tip" data-tip="Ihr Unternehmensprofil bei Google Maps mit Bewertungen und Kontaktdaten">Google Business Profil</span></label><input id="gbp_link" type="url" placeholder="z.B. https://g.page/muster-firma"></div>
+          <div><label>Name des Profils bei Google</label><input id="gbp_name" placeholder="z.B. M&uuml;ller Reinigung M&uuml;nchen"></div>
+          <div><label>Anzahl Bewertungen</label><input id="gbp_reviews" type="number" min="0" placeholder="z.B. 120"></div>
           <div><label>Sternebewertung</label><input id="gbp_rating" type="number" min="1" max="5" step="0.1" placeholder="z.B. 4.8"></div>
           <div><label>Google Profil aktiv einbinden?</label><select id="gbp_einbinden"><option></option><option>ja</option><option>nein</option></select></div>
-          <div><label>Instagram</label><input id="social_instagram" placeholder="@nutzername oder URL"></div>
-          <div><label>Facebook</label><input id="social_facebook"></div>
-          <div><label>TikTok</label><input id="social_tiktok"></div>
-          <div><label>LinkedIn</label><input id="social_linkedin"></div>
-          <div><label>YouTube</label><input id="social_youtube"></div>
-          <div><label>X / Twitter</label><input id="social_x"></div>
-          <div><label>Pinterest</label><input id="social_pinterest"></div>
-          <div><label>Sonstige Profile</label><input id="social_sonstige"></div>
+          <div><label>Instagram</label><input id="social_instagram" placeholder="z.B. @musterfirma oder https://instagram.com/musterfirma"></div>
+          <div><label>Facebook</label><input id="social_facebook" placeholder="z.B. https://facebook.com/musterfirma"></div>
+          <div><label>TikTok</label><input id="social_tiktok" placeholder="z.B. @musterfirma"></div>
+          <div><label>LinkedIn</label><input id="social_linkedin" placeholder="z.B. https://linkedin.com/company/musterfirma"></div>
+          <div><label>YouTube</label><input id="social_youtube" placeholder="z.B. https://youtube.com/@musterfirma"></div>
+          <div><label>X / Twitter</label><input id="social_x" placeholder="z.B. @musterfirma"></div>
+          <div><label>Pinterest</label><input id="social_pinterest" placeholder="z.B. https://pinterest.com/musterfirma"></div>
+          <div><label>Sonstige Profile</label><input id="social_sonstige" placeholder="z.B. Yelp, Proven Expert, etc."></div>
         </div>
         <div class="fields two" style="margin-top:14px">
-          <div><label>Plattformen, auf denen Sie NICHT erscheinen möchten</label><textarea id="social_no"></textarea></div>
-          <div><label>Welche Profile sollen sichtbar verlinkt werden?</label><textarea id="social_visible"></textarea></div>
-          <div style="grid-column:1 / -1"><label>Welche Profile sind besonders wichtig für Neukunden?</label><textarea id="social_wichtig"></textarea></div>
+          <div><label>Plattformen, auf denen Sie NICHT erscheinen m&ouml;chten</label><textarea id="social_no" placeholder="z.B. TikTok, Pinterest"></textarea></div>
+          <div><label>Welche Profile sollen sichtbar verlinkt werden?</label><textarea id="social_visible" placeholder="z.B. Instagram, Google Business, LinkedIn"></textarea></div>
+          <div style="grid-column:1 / -1"><label>Welche Profile sind besonders wichtig f&uuml;r Neukunden?</label><textarea id="social_wichtig" placeholder="z.B. Google Bewertungen, Instagram Portfolio"></textarea></div>
         </div>
       </section>
 
       <!-- 4. Leistungen -->
-      <section class="card">
-        <div class="section-title"><div class="num">4</div><div><h2>Leistungen</h2><p class="sub">Bestimmt die spätere Seitenstruktur und SEO-Schwerpunkte.</p></div></div>
+      <section class="card" data-step="4" id="step-4">
+        <div class="section-title">
+          <div class="num">
+            4
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="4"/>
+            </svg>
+          </div>
+          <div><h2>Leistungen</h2><p class="sub">Bestimmt die sp&auml;tere Seitenstruktur und <span class="tip" data-tip="Suchmaschinenoptimierung – damit Google Ihre Webseite besser findet">SEO</span>-Schwerpunkte.</p></div>
+        </div>
         <div class="fields two">
-          <div style="grid-column:1 / -1"><label>Welche Dienstleistungen bieten Sie an?</label><textarea id="leistungen" placeholder="Bitte alle Leistungen auflisten, eine pro Zeile"></textarea></div>
-          <div><label>Welche 3 Leistungen sind am wichtigsten?</label><textarea id="top3"></textarea></div>
-          <div><label>Welche sollen prominent auf der Startseite erscheinen?</label><textarea id="start_prominent"></textarea></div>
-          <div><label>Welche Leistungen bieten Sie NICHT an?</label><textarea id="nicht"></textarea></div>
-          <div><label>Spezialisierungen oder besondere Stärken</label><textarea id="spezial"></textarea></div>
-          <div><label>Mindestaufträge, Anfahrtskosten oder Preisrahmen</label><textarea id="preise"></textarea></div>
-          <div style="grid-column:1 / -1"><label>Notdienst, Express-Service oder Wochenendtermine</label><textarea id="express"></textarea></div>
+          <div style="grid-column:1 / -1"><label>Welche Dienstleistungen bieten Sie an?</label><textarea id="leistungen" placeholder="z.B. Unterhaltsreinigung&#10;Grundreinigung&#10;Fensterreinigung&#10;B&uuml;roreinigung"></textarea></div>
+          <div><label>Welche 3 Leistungen sind am wichtigsten?</label><textarea id="top3" placeholder="z.B. 1. Unterhaltsreinigung&#10;2. Fensterreinigung&#10;3. B&uuml;roreinigung"></textarea></div>
+          <div><label>Welche sollen prominent auf der Startseite erscheinen?</label><textarea id="start_prominent" placeholder="z.B. Unterhaltsreinigung, Fensterreinigung"></textarea></div>
+          <div><label>Welche Leistungen bieten Sie NICHT an?</label><textarea id="nicht" placeholder="z.B. Sch&auml;dlingsbek&auml;mpfung, Gartenarbeit"></textarea></div>
+          <div><label>Spezialisierungen oder besondere St&auml;rken</label><textarea id="spezial" placeholder="z.B. Denkmalreinigung, Solaranlagen-Reinigung"></textarea></div>
+          <div><label>Mindestauftr&auml;ge, Anfahrtskosten oder Preisrahmen</label><textarea id="preise" placeholder="z.B. Ab 25&euro;/Stunde, Mindestauftrag 2 Stunden"></textarea></div>
+          <div style="grid-column:1 / -1"><label>Notdienst, Express-Service oder Wochenendtermine</label><textarea id="express" placeholder="z.B. Notdienst Mo-Sa, Express innerhalb 24h m&ouml;glich"></textarea></div>
         </div>
       </section>
 
       <!-- 5. Einsatzgebiet -->
-      <section class="card">
-        <div class="section-title"><div class="num">5</div><div><h2>Einsatzgebiet / Standorte / Local SEO</h2><p class="sub">Wichtig für Standortseiten und lokale Relevanz.</p></div></div>
+      <section class="card" data-step="5" id="step-5">
+        <div class="section-title">
+          <div class="num">
+            5
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="5"/>
+            </svg>
+          </div>
+          <div><h2>Einsatzgebiet / Standorte / <span class="tip" data-tip="Lokale Suchmaschinenoptimierung f&uuml;r Ihre Region">Local SEO</span></h2><p class="sub">Wichtig f&uuml;r Standortseiten und lokale Relevanz.</p></div>
+        </div>
         <div class="fields two">
-          <div><label>In welchen Städten / Regionen arbeiten Sie?</label><textarea id="gebiete"></textarea></div>
-          <div><label>Welche Orte sind am wichtigsten?</label><textarea id="orte_wichtig"></textarea></div>
-          <div><label>Relevante Stadtteile oder Unterregionen</label><textarea id="stadtteile"></textarea></div>
-          <div><label>Einsatzradius</label><input id="radius" placeholder="z.B. 50 km"></div>
-          <div><label>Orte mit besonders vielen Kunden</label><textarea id="orte_viel"></textarea></div>
-          <div><label>Orte, in denen Sie NICHT tätig sind</label><textarea id="orte_nicht"></textarea></div>
+          <div><label>In welchen St&auml;dten / Regionen arbeiten Sie?</label><textarea id="gebiete" placeholder="z.B. M&uuml;nchen, Dachau, Freising, Erding, Starnberg"></textarea></div>
+          <div><label>Welche Orte sind am wichtigsten?</label><textarea id="orte_wichtig" placeholder="z.B. M&uuml;nchen-Zentrum, Schwabing, Bogenhausen"></textarea></div>
+          <div><label>Relevante Stadtteile oder Unterregionen</label><textarea id="stadtteile" placeholder="z.B. Schwabing, Maxvorstadt, Haidhausen, Sendling"></textarea></div>
+          <div><label>Einsatzradius</label><input id="radius" placeholder="z.B. 40 km um M&uuml;nchen"></div>
+          <div><label>Orte mit besonders vielen Kunden</label><textarea id="orte_viel" placeholder="z.B. Schwabing, Bogenhausen, Gr&uuml;nwald"></textarea></div>
+          <div><label>Orte, in denen Sie NICHT t&auml;tig sind</label><textarea id="orte_nicht" placeholder="z.B. Au&szlig;erhalb Oberbayern"></textarea></div>
         </div>
       </section>
 
       <!-- 6. Vertrauen -->
-      <section class="card">
-        <div class="section-title"><div class="num">6</div><div><h2>Vertrauen / Referenzen / Marketing</h2><p class="sub">Für Conversion, Hero-Bereich, Referenzen und Social Proof.</p></div></div>
+      <section class="card" data-step="6" id="step-6">
+        <div class="section-title">
+          <div class="num">
+            6
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="6"/>
+            </svg>
+          </div>
+          <div><h2>Vertrauen / Referenzen / Marketing</h2><p class="sub">F&uuml;r <span class="tip" data-tip="Wenn ein Besucher zum Kunden wird – z.B. durch Anruf oder Anfrage">Conversion</span>, <span class="tip" data-tip="Der erste gro&szlig;e Bereich, den Besucher beim &Ouml;ffnen Ihrer Webseite sehen">Hero-Bereich</span>, Referenzen und Social Proof.</p></div>
+        </div>
         <div class="fields two">
-          <div><label>Jahre Erfahrung</label><input id="erfahrung" type="number" min="0"></div>
-          <div><label>Ungefähre Anzahl betreuter Kunden</label><input id="kunden"></div>
-          <div><label>Echte Kundenbewertungen oder Referenzen</label><textarea id="referenzen"></textarea></div>
-          <div><label>Partner, Kooperationen oder bekannte Auftraggeber</label><textarea id="partner"></textarea></div>
-          <div><label>Zertifikate, Mitgliedschaften oder Auszeichnungen</label><textarea id="zertifikate"></textarea></div>
-          <div><label>Was unterscheidet Sie von der Konkurrenz?</label><textarea id="usp"></textarea></div>
-          <div style="grid-column:1 / -1"><label>3 wichtigste Vorteile aus Kundensicht</label><textarea id="vorteile3" placeholder="1. ...\n2. ...\n3. ..."></textarea></div>
-          <div><label>Gewünschte Hauptüberschrift / Slogan</label><textarea id="hero_headline" placeholder="z.B. Ihr Experte für ... in München"></textarea><span class="hint">Wird als H1 im Hero-Bereich verwendet.</span></div>
-          <div><label>Trust-Signale für den Hero-Bereich</label><textarea id="hero_trust" placeholder="z.B. 10+ Jahre Erfahrung, Kostenlose Beratung, Regionaler Betrieb"></textarea><span class="hint">Kurze Vertrauensmerkmale direkt unter der Überschrift.</span></div>
-          <div><label>Firmengeschichte / Gründungsstory</label><textarea id="firmengeschichte" placeholder="Wie ist Ihr Unternehmen entstanden? Was treibt Sie an?"></textarea></div>
-          <div><label>Team-Vorstellung gewünscht?</label><select id="team_vorstellen"><option></option><option>ja, mit Fotos und Namen</option><option>ja, aber ohne Fotos</option><option>nein</option></select></div>
-          <div><label>Anzahl Team-Mitglieder für Vorstellung</label><input id="team_anzahl" placeholder="z.B. 3-5 Personen"></div>
-          <div><label>Sollen Partner-Logos im Footer erscheinen?</label><select id="partner_footer"><option></option><option>ja</option><option>nein</option></select></div>
-          <div style="grid-column:1 / -1"><label>Partner-Logos / Links für den Footer</label><textarea id="partner_logos" placeholder="Name + URL je Zeile, z.B.:\nMičo - https://...\nOkan - https://..."></textarea></div>
+          <div><label>Jahre Erfahrung</label><input id="erfahrung" type="number" min="0" placeholder="z.B. 15"></div>
+          <div><label>Ungef&auml;hre Anzahl betreuter Kunden</label><input id="kunden" placeholder="z.B. &uuml;ber 2.000"></div>
+          <div><label>Echte Kundenbewertungen oder Referenzen</label><textarea id="referenzen" placeholder="z.B. 4,9 Sterne bei Google, 120+ Bewertungen"></textarea></div>
+          <div><label>Partner, Kooperationen oder bekannte Auftraggeber</label><textarea id="partner" placeholder="z.B. Hausverwaltung Schmidt, Immobilien Weber"></textarea></div>
+          <div><label>Zertifikate, Mitgliedschaften oder Auszeichnungen</label><textarea id="zertifikate" placeholder="z.B. Meisterbetrieb, ISO 9001, Innungsmitglied"></textarea></div>
+          <div><label>Was unterscheidet Sie von der Konkurrenz?</label><textarea id="usp" placeholder="z.B. 24h Erreichbarkeit, eigene Mitarbeiter, &ouml;kologische Reinigungsmittel"></textarea></div>
+          <div style="grid-column:1 / -1"><label>3 wichtigste Vorteile aus Kundensicht</label><textarea id="vorteile3" placeholder="z.B. 1. Festpreise ohne versteckte Kosten&#10;2. Eigenes geschultes Personal&#10;3. 100% Zufriedenheitsgarantie"></textarea></div>
+          <div><label>Gew&uuml;nschte Haupt&uuml;berschrift / Slogan</label><textarea id="hero_headline" placeholder="z.B. Professionelle Geb&auml;udereinigung in M&uuml;nchen"></textarea><span class="hint">Wird als <span class="tip" data-tip="Die Haupt&uuml;berschrift einer Seite – besonders wichtig f&uuml;r Google">H1</span> im <span class="tip" data-tip="Der erste gro&szlig;e Bereich, den Besucher beim &Ouml;ffnen Ihrer Webseite sehen">Hero-Bereich</span> verwendet.</span></div>
+          <div><label><span class="tip" data-tip="Vertrauenselemente wie Bewertungen, Zertifikate oder Erfahrungsjahre">Trust-Signale</span> f&uuml;r den <span class="tip" data-tip="Der erste gro&szlig;e Bereich, den Besucher beim &Ouml;ffnen Ihrer Webseite sehen">Hero-Bereich</span></label><textarea id="hero_trust" placeholder="z.B. 15+ Jahre Erfahrung, Kostenlose Beratung, Regionaler Meisterbetrieb"></textarea><span class="hint">Kurze Vertrauensmerkmale direkt unter der &Uuml;berschrift.</span></div>
+          <div><label>Firmengeschichte / Gr&uuml;ndungsstory</label><textarea id="firmengeschichte" placeholder="z.B. Gegr&uuml;ndet 2010 als Familienbetrieb, heute 12 Mitarbeiter..."></textarea></div>
+          <div><label>Team-Vorstellung gew&uuml;nscht?</label><select id="team_vorstellen"><option></option><option>ja, mit Fotos und Namen</option><option>ja, aber ohne Fotos</option><option>nein</option></select></div>
+          <div><label>Anzahl Team-Mitglieder f&uuml;r Vorstellung</label><input id="team_anzahl" placeholder="z.B. 3-5 Personen"></div>
+          <div><label>Sollen Partner-Logos im <span class="tip" data-tip="Der Abschlussbereich am Ende jeder Seite mit Kontaktdaten, Links und rechtlichen Infos">Footer</span> erscheinen?</label><select id="partner_footer"><option></option><option>ja</option><option>nein</option></select></div>
+          <div style="grid-column:1 / -1"><label>Partner-Logos / Links f&uuml;r den <span class="tip" data-tip="Der Abschlussbereich am Ende jeder Seite mit Kontaktdaten, Links und rechtlichen Infos">Footer</span></label><textarea id="partner_logos" placeholder="z.B. Partner A – https://...&#10;Partner B – https://..."></textarea></div>
         </div>
       </section>
 
       <!-- 7. Branding / Design / Farben -->
-      <section class="card">
-        <div class="section-title"><div class="num">7</div><div><h2>Branding / Design / Farben</h2><p class="sub">Freie Farbauswahl mit harmonischen Paletten und Live-Vorschau.</p></div></div>
+      <section class="card" data-step="7" id="step-7">
+        <div class="section-title">
+          <div class="num">
+            7
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="7"/>
+            </svg>
+          </div>
+          <div><h2>Branding / Design / Farben</h2><p class="sub">Freie Farbauswahl mit harmonischen Paletten und Live-Vorschau.</p></div>
+        </div>
 
         <div class="note">
-          <strong>So funktioniert es:</strong> Wählen Sie unten eine Basisfarbe – daraus werden automatisch harmonische Farbpaletten generiert.
-          Klicken Sie auf eine Palette, um sie zu übernehmen. Sie können jede Farbe auch einzeln per Color-Picker oder Hex-Code anpassen.<br><br>
-          <strong>Hauptfarbe</strong> = Header, Überschriften, zentrale Markenelemente<br>
-          <strong>Zusatzfarbe</strong> = Hintergründe, Flächen, ruhige Bereiche<br>
-          <strong>Akzentfarbe</strong> = CTA-Buttons, Highlights, Aufmerksamkeitselemente
+          <strong>So funktioniert es:</strong> W&auml;hlen Sie unten eine Basisfarbe &ndash; daraus werden automatisch harmonische Farbpaletten generiert.
+          Klicken Sie auf eine Palette, um sie zu &uuml;bernehmen. Sie k&ouml;nnen jede Farbe auch einzeln per Color-Picker oder Hex-Code anpassen.<br><br>
+          <strong>Hauptfarbe</strong> = <span class="tip" data-tip="Der obere Bereich Ihrer Webseite mit Logo, Navigation und Kontakt-Button">Header</span>, &Uuml;berschriften, zentrale Markenelemente<br>
+          <strong>Zusatzfarbe</strong> = Hintergr&uuml;nde, Fl&auml;chen, ruhige Bereiche<br>
+          <strong>Akzentfarbe</strong> = <span class="tip" data-tip="Call-to-Action – die Haupt-Handlungsaufforderung an Besucher, z.B. 'Jetzt Angebot anfordern'">CTA</span>-Buttons, Highlights, Aufmerksamkeitselemente
         </div>
 
         <!-- Base Color Picker -->
         <div class="color-section">
           <div style="margin: 18px 0 14px;">
-            <label>Basisfarbe wählen (daraus werden Paletten generiert)</label>
+            <label>Basisfarbe w&auml;hlen (daraus werden Paletten generiert)</label>
             <div class="color-picker-wrap">
               <input type="color" id="baseColorPicker" value="#1e3a5f">
               <input class="color-hex-input" id="baseColorHex" value="#1e3a5f" maxlength="7" placeholder="#1e3a5f">
@@ -412,11 +710,12 @@
           <div class="palette-section">
             <h3>Harmonische Paletten</h3>
             <div class="palette-tabs" id="paletteTabs">
-              <button type="button" class="palette-tab active" data-harmony="complementary">Komplementär</button>
+              <button type="button" class="palette-tab active" data-harmony="complementary">Komplement&auml;r</button>
               <button type="button" class="palette-tab" data-harmony="analogous">Analog</button>
               <button type="button" class="palette-tab" data-harmony="triadic">Triadisch</button>
-              <button type="button" class="palette-tab" data-harmony="split">Split-Komplementär</button>
+              <button type="button" class="palette-tab" data-harmony="split">Split-Komplement&auml;r</button>
               <button type="button" class="palette-tab" data-harmony="monochromatic">Monochromatisch</button>
+              <button type="button" class="palette-tab" data-harmony="industry">Branchen-Paletten</button>
             </div>
             <div class="palette-grid" id="paletteGrid"></div>
           </div>
@@ -425,7 +724,7 @@
           <div class="color-row" style="margin-top: 20px;">
             <div class="color-box">
               <label>Hauptfarbe</label>
-              <div class="small">Header, Navigation, Marke</div>
+              <div class="small"><span class="tip" data-tip="Der obere Bereich Ihrer Webseite mit Logo, Navigation und Kontakt-Button">Header</span>, Navigation, Marke</div>
               <div class="color-picker-wrap">
                 <input type="color" id="colorPrimary" value="#1e3a5f">
                 <input class="color-hex-input" id="hexPrimary" value="#1e3a5f" maxlength="7">
@@ -435,7 +734,7 @@
             </div>
             <div class="color-box">
               <label>Zusatzfarbe</label>
-              <div class="small">Hintergründe, Flächen, Karten</div>
+              <div class="small">Hintergr&uuml;nde, Fl&auml;chen, Karten</div>
               <div class="color-picker-wrap">
                 <input type="color" id="colorSecondary" value="#e8eef6">
                 <input class="color-hex-input" id="hexSecondary" value="#e8eef6" maxlength="7">
@@ -445,7 +744,7 @@
             </div>
             <div class="color-box">
               <label>Akzentfarbe</label>
-              <div class="small">CTA-Buttons, Highlights</div>
+              <div class="small"><span class="tip" data-tip="Call-to-Action – die Haupt-Handlungsaufforderung an Besucher, z.B. 'Jetzt Angebot anfordern'">CTA</span>-Buttons, Highlights</div>
               <div class="color-picker-wrap">
                 <input type="color" id="colorAccent" value="#e07b38">
                 <input class="color-hex-input" id="hexAccent" value="#e07b38" maxlength="7">
@@ -469,156 +768,230 @@
           <div class="preview-body" id="previewBody">
             <div class="preview-card">
               <h3 style="margin:0 0 8px" id="previewHeading">Willkommen bei Ihrem Unternehmen</h3>
-              <p class="small" style="margin:0">So wirkt Ihre Farbkombination auf der fertigen Webseite. Hauptfarbe im Header, Zusatzfarbe als Hintergrund, Akzentfarbe für den Button.</p>
+              <p class="small" style="margin:0">So wirkt Ihre Farbkombination auf der fertigen Webseite. Hauptfarbe im <span class="tip" data-tip="Der obere Bereich Ihrer Webseite mit Logo, Navigation und Kontakt-Button">Header</span>, Zusatzfarbe als Hintergrund, Akzentfarbe f&uuml;r den Button.</p>
               <span class="preview-btn" id="previewBtn">Jetzt Kontakt aufnehmen</span>
             </div>
           </div>
           <div class="preview-footer" id="previewFooter">
-            © 2026 Ihr Unternehmen · Impressum · Datenschutz
+            &copy; 2026 Ihr Unternehmen &middot; Impressum &middot; Datenschutz
           </div>
         </div>
 
         <div class="fields two" style="margin-top:16px">
-          <div><label>Welche Wirkung soll die Webseite insgesamt haben?</label><textarea id="wirkung" placeholder="z.B. modern, vertrauenswürdig, professionell"></textarea></div>
-          <div><label>Webseiten, deren Farben oder Stil Ihnen gefallen</label><textarea id="inspiration" placeholder="URLs von Webseiten, die Ihnen optisch gefallen"></textarea></div>
+          <div><label>Welche Wirkung soll die Webseite insgesamt haben?</label><textarea id="wirkung" placeholder="z.B. modern, vertrauensw&uuml;rdig, professionell, aufger&auml;umt"></textarea></div>
+          <div><label>Webseiten, deren Farben oder Stil Ihnen gefallen</label><textarea id="inspiration" placeholder="z.B. https://www.beispiel-firma.de, https://www.andere-firma.de"></textarea></div>
           <div><label>Haben Sie ein Logo?</label><select id="logo_vorhanden"><option></option><option>ja</option><option>nein</option><option>wird noch erstellt</option></select></div>
-          <div><label>Logo Datei oder Link</label><input id="logo_link"></div>
-          <div><label>Haben Sie ein Favicon?</label><select id="favicon_vorhanden"><option></option><option>ja</option><option>nein</option></select></div>
-          <div><label>Favicon Datei oder Link</label><input id="favicon_link"></div>
-          <div><label>Feste Schriftarten oder Designvorgaben</label><textarea id="schrift"></textarea></div>
-          <div><label>Farbkombinationen, die Sie NICHT möchten</label><textarea id="no_colors"></textarea></div>
-          <div style="grid-column:1 / -1"><label>Nutzungsrechte an Bildern, Logos und Icons vorhanden?</label><textarea id="rechte"></textarea></div>
+          <div><label>Logo Datei oder Link</label><input id="logo_link" placeholder="z.B. https://drive.google.com/logo.svg"></div>
+          <div><label>Haben Sie ein <span class="tip" data-tip="Das kleine Symbol im Browser-Tab neben dem Seitennamen">Favicon</span>?</label><select id="favicon_vorhanden"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label><span class="tip" data-tip="Das kleine Symbol im Browser-Tab neben dem Seitennamen">Favicon</span> Datei oder Link</label><input id="favicon_link" placeholder="z.B. https://drive.google.com/favicon.png"></div>
+          <div><label>Feste Schriftarten oder Designvorgaben</label><textarea id="schrift" placeholder="z.B. Open Sans, Roboto, oder keine Vorgabe"></textarea></div>
+          <div><label>Farbkombinationen, die Sie NICHT m&ouml;chten</label><textarea id="no_colors" placeholder="z.B. kein Pink, kein Neongr&uuml;n"></textarea></div>
+          <div style="grid-column:1 / -1"><label>Nutzungsrechte an Bildern, Logos und Icons vorhanden?</label><textarea id="rechte" placeholder="z.B. Ja, alle Bilder sind eigene Aufnahmen"></textarea></div>
         </div>
 
-        <table class="specs">
-          <thead><tr><th>Dateityp</th><th>Format</th><th>Auflösung</th><th>Max. Größe</th></tr></thead>
-          <tbody>
-            <tr><td>Logo</td><td>SVG bevorzugt, alt. WebP</td><td>SVG skalierbar, WebP mind. 800×800</td><td>SVG &lt;200 KB, WebP &lt;300 KB</td></tr>
-            <tr><td>Favicon</td><td>SVG bevorzugt, alt. PNG</td><td>512×512 px</td><td>&lt;100 KB</td></tr>
-            <tr><td>OG / Social</td><td>WebP</td><td>1200×630 px</td><td>&lt;300 KB</td></tr>
-            <tr><td>Hero-Bild</td><td>WebP</td><td>1920×1080 px</td><td>&lt;350 KB</td></tr>
-            <tr><td>Leistungsbilder</td><td>WebP</td><td>1200×800 px</td><td>&lt;250 KB</td></tr>
-            <tr><td>Icons</td><td>SVG bevorzugt</td><td>512×512 px</td><td>&lt;80 KB</td></tr>
-          </tbody>
-        </table>
+        <div class="specs-wrap">
+          <table class="specs">
+            <thead><tr><th>Dateityp</th><th>Format</th><th>Aufl&ouml;sung</th><th>Max. Gr&ouml;&szlig;e</th></tr></thead>
+            <tbody>
+              <tr><td>Logo</td><td>SVG bevorzugt, alt. <span class="tip" data-tip="Modernes Bildformat f&uuml;r schnelle Webseiten ohne Qualit&auml;tsverlust">WebP</span></td><td>SVG skalierbar, <span class="tip" data-tip="Modernes Bildformat f&uuml;r schnelle Webseiten ohne Qualit&auml;tsverlust">WebP</span> mind. 800&times;800</td><td>SVG &lt;200 KB, <span class="tip" data-tip="Modernes Bildformat f&uuml;r schnelle Webseiten ohne Qualit&auml;tsverlust">WebP</span> &lt;300 KB</td></tr>
+              <tr><td><span class="tip" data-tip="Das kleine Symbol im Browser-Tab neben dem Seitennamen">Favicon</span></td><td>SVG bevorzugt, alt. PNG</td><td>512&times;512 px</td><td>&lt;100 KB</td></tr>
+              <tr><td><span class="tip" data-tip="Vorschaubilder beim Teilen in sozialen Medien">OG / Social</span></td><td><span class="tip" data-tip="Modernes Bildformat f&uuml;r schnelle Webseiten ohne Qualit&auml;tsverlust">WebP</span></td><td>1200&times;630 px</td><td>&lt;300 KB</td></tr>
+              <tr><td>Hero-Bild</td><td><span class="tip" data-tip="Modernes Bildformat f&uuml;r schnelle Webseiten ohne Qualit&auml;tsverlust">WebP</span></td><td>1920&times;1080 px</td><td>&lt;350 KB</td></tr>
+              <tr><td>Leistungsbilder</td><td><span class="tip" data-tip="Modernes Bildformat f&uuml;r schnelle Webseiten ohne Qualit&auml;tsverlust">WebP</span></td><td>1200&times;800 px</td><td>&lt;250 KB</td></tr>
+              <tr><td>Icons</td><td>SVG bevorzugt</td><td>512&times;512 px</td><td>&lt;80 KB</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <!-- 8. Bilder / Medien -->
-      <section class="card">
-        <div class="section-title"><div class="num">8</div><div><h2>Bilder / Medien</h2><p class="sub">Welche Medien vorhanden sind und wie sie eingesetzt werden sollen.</p></div></div>
+      <section class="card" data-step="8" id="step-8">
+        <div class="section-title">
+          <div class="num">
+            8
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="8"/>
+            </svg>
+          </div>
+          <div><h2>Bilder / Medien</h2><p class="sub">Welche Medien vorhanden sind und wie sie eingesetzt werden sollen.</p></div>
+        </div>
         <div class="fields two">
-          <div><label>Welche Bilder stehen zur Verfügung?</label><textarea id="bilder_verf"></textarea></div>
-          <div><label>Welche Bilder sollen unbedingt auf die Webseite?</label><textarea id="bilder_unbedingt"></textarea></div>
-          <div><label>Welche Bilder sollen NICHT verwendet werden?</label><textarea id="bilder_nicht"></textarea></div>
-          <div><label>Welchen Stil sollen die Bilder haben?</label><textarea id="bilder_stil" placeholder="z.B. echte Fotos, professionell, authentisch"></textarea></div>
-          <div><label>Bild als großes Startseitenbild vorhanden?</label><textarea id="hero_bild"></textarea></div>
-          <div><label>Bilder für Social Media / WhatsApp / Google?</label><textarea id="social_bilder"></textarea></div>
+          <div><label>Welche Bilder stehen zur Verf&uuml;gung?</label><textarea id="bilder_verf" placeholder="z.B. Teamfotos, Vorher-Nachher-Bilder, Firmenfahrzeug"></textarea></div>
+          <div><label>Welche Bilder sollen unbedingt auf die Webseite?</label><textarea id="bilder_unbedingt" placeholder="z.B. Teamfoto, Logo, Firmenfahrzeug"></textarea></div>
+          <div><label>Welche Bilder sollen NICHT verwendet werden?</label><textarea id="bilder_nicht" placeholder="z.B. alte unscharfe Handyfotos"></textarea></div>
+          <div><label>Welchen Stil sollen die Bilder haben?</label><textarea id="bilder_stil" placeholder="z.B. professionell, authentisch, echte Fotos bevorzugt"></textarea></div>
+          <div><label>Bild als gro&szlig;es Startseitenbild vorhanden?</label><textarea id="hero_bild" placeholder="z.B. Ja, professionelles Teamfoto vorhanden"></textarea></div>
+          <div><label>Bilder f&uuml;r Social Media / WhatsApp / Google?</label><textarea id="social_bilder" placeholder="z.B. Logo in quadratisch, Bannerbild vorhanden"></textarea></div>
         </div>
       </section>
 
       <!-- 9. FAQ -->
-      <section class="card">
-        <div class="section-title"><div class="num">9</div><div><h2>FAQ / Kundenfragen / Inhalte</h2><p class="sub">Wichtig für FAQ, Blog, SEO und Kundenverständnis.</p></div></div>
+      <section class="card" data-step="9" id="step-9">
+        <div class="section-title">
+          <div class="num">
+            9
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="9"/>
+            </svg>
+          </div>
+          <div><h2>FAQ / Kundenfragen / Inhalte</h2><p class="sub">Wichtig f&uuml;r FAQ, Blog, <span class="tip" data-tip="Suchmaschinenoptimierung – damit Google Ihre Webseite besser findet">SEO</span> und Kundenverst&auml;ndnis.</p></div>
+        </div>
         <div class="fields two">
-          <div><label>Häufigste Kundenfragen</label><textarea id="faq_fragen"></textarea></div>
-          <div><label>Häufige Einwände von Kunden</label><textarea id="faq_einwaende"></textarea></div>
-          <div><label>Infos, die Kunden sofort wissen wollen</label><textarea id="faq_sofort"></textarea></div>
-          <div><label>Typischer Auftragsablauf</label><textarea id="faq_ablauf"></textarea></div>
-          <div><label>Was sollen Kunden auf der Startseite sofort verstehen?</label><textarea id="faq_startseite"></textarea></div>
-          <div><label>Themen, die ausführlich erklärt werden sollen</label><textarea id="faq_themen"></textarea></div>
-          <div style="grid-column:1 / -1"><label>Themenideen für FAQ / Blog / Ratgeber</label><textarea id="faq_blogs"></textarea><span class="hint">Tipp: Recherche z.B. via site:reddit.com [Thema] für echte Kundenfragen.</span></div>
-          <div><label>Gibt es bereits Texte, Flyer oder Broschüren?</label><select id="content_vorhanden"><option></option><option>ja, digital</option><option>ja, nur gedruckt</option><option>nein</option></select></div>
-          <div><label>Bestehende Texte / Materialien beschreiben</label><textarea id="content_beschreibung" placeholder="z.B. Firmenflyer, alte Website-Texte, Angebotsvorlagen"></textarea></div>
+          <div><label>H&auml;ufigste Kundenfragen</label><textarea id="faq_fragen" placeholder="z.B. Was kostet eine Reinigung?&#10;Wie schnell k&ouml;nnen Sie starten?"></textarea></div>
+          <div><label>H&auml;ufige Einw&auml;nde von Kunden</label><textarea id="faq_einwaende" placeholder="z.B. Das ist zu teuer, Brauche ich wirklich einen Profi?"></textarea></div>
+          <div><label>Infos, die Kunden sofort wissen wollen</label><textarea id="faq_sofort" placeholder="z.B. Preise, Verf&uuml;gbarkeit, Kontaktm&ouml;glichkeit"></textarea></div>
+          <div><label>Typischer Auftragsablauf</label><textarea id="faq_ablauf" placeholder="z.B. 1. Anfrage &rarr; 2. Besichtigung &rarr; 3. Angebot &rarr; 4. Durchf&uuml;hrung"></textarea></div>
+          <div><label>Was sollen Kunden auf der Startseite sofort verstehen?</label><textarea id="faq_startseite" placeholder="z.B. Wir sind der regionale Experte f&uuml;r..."></textarea></div>
+          <div><label>Themen, die ausf&uuml;hrlich erkl&auml;rt werden sollen</label><textarea id="faq_themen" placeholder="z.B. Kosten, Ablauf, H&auml;ufigkeit der Reinigung"></textarea></div>
+          <div style="grid-column:1 / -1"><label>Themenideen f&uuml;r FAQ / Blog / Ratgeber</label><textarea id="faq_blogs" placeholder="z.B. 10 Tipps f&uuml;r saubere Fenster, Was kostet Geb&auml;udereinigung?"></textarea><span class="hint">Tipp: Recherche z.B. via site:reddit.com [Thema] f&uuml;r echte Kundenfragen.</span></div>
+          <div><label>Gibt es bereits Texte, Flyer oder Brosch&uuml;ren?</label><select id="content_vorhanden"><option></option><option>ja, digital</option><option>ja, nur gedruckt</option><option>nein</option></select></div>
+          <div><label>Bestehende Texte / Materialien beschreiben</label><textarea id="content_beschreibung" placeholder="z.B. Firmenflyer von 2023, alte Webseitentexte"></textarea></div>
           <div><label>Haben Sie einen Slogan oder Claim?</label><input id="slogan" placeholder="z.B. Sauberkeit ist unsere Leidenschaft"></div>
-          <div><label>Wie oft soll der Blog aktualisiert werden?</label><select id="blog_frequenz"><option></option><option>wöchentlich</option><option>2x pro Monat</option><option>monatlich</option><option>gelegentlich</option><option>kein Blog geplant</option></select></div>
-          <div style="grid-column:1 / -1"><label>Wer liefert laufend neue Inhalte / Texte?</label><textarea id="content_lieferant" placeholder="z.B. wir selbst, Agentur soll übernehmen, gemeinsam"></textarea></div>
+          <div><label>Wie oft soll der Blog aktualisiert werden?</label><select id="blog_frequenz"><option></option><option>w&ouml;chentlich</option><option>2x pro Monat</option><option>monatlich</option><option>gelegentlich</option><option>kein Blog geplant</option></select></div>
+          <div style="grid-column:1 / -1"><label>Wer liefert laufend neue Inhalte / Texte?</label><textarea id="content_lieferant" placeholder="z.B. Wir liefern Stichpunkte, Agentur schreibt Texte"></textarea></div>
         </div>
       </section>
 
       <!-- 10. Kontakt & Conversion -->
-      <section class="card">
-        <div class="section-title"><div class="num">10</div><div><h2>Kontakt & Conversion</h2><p class="sub">Welche Aktion und Kontaktform priorisiert werden soll.</p></div></div>
+      <section class="card" data-step="10" id="step-10">
+        <div class="section-title">
+          <div class="num">
+            10
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="10"/>
+            </svg>
+          </div>
+          <div><h2>Kontakt &amp; <span class="tip" data-tip="Wenn ein Besucher zum Kunden wird – z.B. durch Anruf oder Anfrage">Conversion</span></h2><p class="sub">Welche Aktion und Kontaktform priorisiert werden soll.</p></div>
+        </div>
         <div class="fields two">
-          <div><label>Bevorzugter Kontaktweg der Kunden</label><textarea id="kontaktweg"></textarea></div>
-          <div><label>Wichtigste Aktion auf der Webseite (CTA)</label><textarea id="cta" placeholder="z.B. Angebot anfordern, Termin buchen"></textarea></div>
-          <div><label>Welche Kontaktart hervorheben?</label><textarea id="kontakt_hervor"></textarea></div>
-          <div><label>Erreichbarkeit / Öffnungszeiten</label><textarea id="zeiten"></textarea></div>
-          <div><label>Übliche Antwortzeit</label><textarea id="antwortzeit"></textarea></div>
+          <div><label>Bevorzugter Kontaktweg der Kunden</label><textarea id="kontaktweg" placeholder="z.B. Telefon und WhatsApp bevorzugt"></textarea></div>
+          <div><label>Wichtigste Aktion auf der Webseite (<span class="tip" data-tip="Call-to-Action – die Haupt-Handlungsaufforderung an Besucher, z.B. 'Jetzt Angebot anfordern'">CTA</span>)</label><textarea id="cta" placeholder="z.B. Kostenloses Angebot anfordern"></textarea></div>
+          <div><label>Welche Kontaktart hervorheben?</label><textarea id="kontakt_hervor" placeholder="z.B. Telefonnummer und WhatsApp-Button"></textarea></div>
+          <div><label>Erreichbarkeit / &Ouml;ffnungszeiten</label><textarea id="zeiten" placeholder="z.B. Mo-Fr 8-18 Uhr, Sa 9-14 Uhr"></textarea></div>
+          <div><label>&Uuml;bliche Antwortzeit</label><textarea id="antwortzeit" placeholder="z.B. Innerhalb von 2 Stunden"></textarea></div>
           <div><label>Kontaktformular einbauen?</label><select id="formular_ja"><option></option><option>ja</option><option>nein</option></select></div>
           <div><label>WhatsApp direkt verlinken?</label><select id="wa_link"><option></option><option>ja</option><option>nein</option></select></div>
         </div>
       </section>
 
       <!-- 11. SEO -->
-      <section class="card">
-        <div class="section-title"><div class="num">11</div><div><h2>SEO / Wettbewerber / Struktur</h2><p class="sub">Für Keywords, Seitenarchitektur und Konkurrenzanalyse.</p></div></div>
+      <section class="card" data-step="11" id="step-11">
+        <div class="section-title">
+          <div class="num">
+            11
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="11"/>
+            </svg>
+          </div>
+          <div><h2><span class="tip" data-tip="Suchmaschinenoptimierung – damit Google Ihre Webseite besser findet">SEO</span> / Wettbewerber / Struktur</h2><p class="sub">F&uuml;r Keywords, Seitenarchitektur und Konkurrenzanalyse.</p></div>
+        </div>
         <div class="fields two">
-          <div><label>Besonders wichtige Suchbegriffe</label><textarea id="seo_keywords" placeholder="z.B. Elektriker München, Sanitär Notdienst"></textarea></div>
-          <div><label>Städte/Regionen besonders bewerben</label><textarea id="seo_staedte"></textarea></div>
-          <div><label>Relevante Mitbewerber-Webseiten</label><textarea id="seo_wettbewerber" placeholder="URLs von Wettbewerbern"></textarea></div>
-          <div><label>Welche Seiten soll die Webseite enthalten?</label><textarea id="seo_seiten" placeholder="z.B. Start, Leistungen, Über uns, Kontakt"></textarea></div>
-          <div><label>Standortseiten gewünscht?</label><select id="seo_standortseiten"><option></option><option>ja</option><option>nein</option></select></div>
-          <div><label>Leistungs-Unterseiten gewünscht?</label><select id="seo_leistungsseiten"><option></option><option>ja</option><option>nein</option></select></div>
-          <div><label>Blog / Ratgeberseiten gewünscht?</label><select id="seo_blog"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Besonders wichtige Suchbegriffe</label><textarea id="seo_keywords" placeholder="z.B. Geb&auml;udereinigung M&uuml;nchen, B&uuml;roreinigung M&uuml;nchen"></textarea></div>
+          <div><label>St&auml;dte/Regionen besonders bewerben</label><textarea id="seo_staedte" placeholder="z.B. M&uuml;nchen, Dachau, Freising"></textarea></div>
+          <div><label>Relevante Mitbewerber-Webseiten</label><textarea id="seo_wettbewerber" placeholder="z.B. https://www.konkurrent-a.de, https://www.konkurrent-b.de"></textarea></div>
+          <div><label>Welche Seiten soll die Webseite enthalten?</label><textarea id="seo_seiten" placeholder="z.B. Start, Leistungen, &Uuml;ber uns, Standorte, Kontakt, Blog"></textarea></div>
+          <div><label>Standortseiten gew&uuml;nscht?</label><select id="seo_standortseiten"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Leistungs-Unterseiten gew&uuml;nscht?</label><select id="seo_leistungsseiten"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Blog / Ratgeberseiten gew&uuml;nscht?</label><select id="seo_blog"><option></option><option>ja</option><option>nein</option></select></div>
           <div><label>Google Ads geplant?</label><select id="seo_ads"><option></option><option>ja</option><option>nein</option><option>eventuell</option></select></div>
-          <div><label>Kombinierte Seiten (Service + Ort) gewünscht?</label><select id="seo_kombi"><option></option><option>ja</option><option>nein</option><option>eventuell</option></select><span class="hint">z.B. „Fensterreinigung München", „Entrümpelung Dachau" – skaliert auf hunderte Seiten.</span></div>
-          <div><label>Ungefähre Anzahl Standortseiten</label><input id="seo_anzahl_standort" placeholder="z.B. 10, 50, 100+"></div>
-          <div><label>AI/LLM-SEO: llms.txt erstellen?</label><select id="seo_llms"><option></option><option>ja</option><option>nein</option><option>was ist das?</option></select><span class="hint">Hilft KI-Assistenten (ChatGPT, Claude, Gemini) Ihr Unternehmen zu empfehlen.</span></div>
-          <div><label>Wie soll Ihr Unternehmen von KI empfohlen werden?</label><textarea id="seo_ai_beschreibung" placeholder="z.B. Wenn jemand nach Fensterreinigung in München fragt, soll unser Unternehmen als Top-Empfehlung erscheinen."></textarea></div>
-          <div style="grid-column:1 / -1"><label>Kernaussage in einem Satz (für AI-Antworten)</label><input id="seo_kernaussage" placeholder="z.B. Müller Reinigung ist der führende Anbieter für professionelle Gebäudereinigung in München und Umgebung."></input></div>
+          <div><label>Kombinierte Seiten (Service + Ort) gew&uuml;nscht?</label><select id="seo_kombi"><option></option><option>ja</option><option>nein</option><option>eventuell</option></select><span class="hint">z.B. &bdquo;Fensterreinigung M&uuml;nchen&ldquo;, &bdquo;Entr&uuml;mpelung Dachau&ldquo; &ndash; skaliert auf hunderte Seiten.</span></div>
+          <div><label>Ungef&auml;hre Anzahl Standortseiten</label><input id="seo_anzahl_standort" placeholder="z.B. 15-20 Seiten"></div>
+          <div><label>AI/LLM-SEO: <span class="tip" data-tip="Eine Datei, die KI-Assistenten wie ChatGPT hilft, Ihr Unternehmen zu empfehlen">llms.txt</span> erstellen?</label><select id="seo_llms"><option></option><option>ja</option><option>nein</option><option>was ist das?</option></select><span class="hint">Hilft KI-Assistenten (ChatGPT, Claude, Gemini) Ihr Unternehmen zu empfehlen.</span></div>
+          <div><label>Wie soll Ihr Unternehmen von KI empfohlen werden?</label><textarea id="seo_ai_beschreibung" placeholder="z.B. Als Top-Empfehlung f&uuml;r Geb&auml;udereinigung in M&uuml;nchen erscheinen"></textarea></div>
+          <div style="grid-column:1 / -1"><label>Kernaussage in einem Satz (f&uuml;r AI-Antworten)</label><input id="seo_kernaussage" placeholder="z.B. M&uuml;ller Reinigung ist M&uuml;nchens f&uuml;hrender Anbieter f&uuml;r professionelle Geb&auml;udereinigung."></div>
         </div>
       </section>
 
-      <!-- 12. Technisches (NEU) -->
-      <section class="card">
-        <div class="section-title"><div class="num">12</div><div><h2>Technische Anforderungen</h2><p class="sub">Hosting, Funktionen und technische Wünsche.</p></div></div>
+      <!-- 12. Technisches -->
+      <section class="card" data-step="12" id="step-12">
+        <div class="section-title">
+          <div class="num">
+            12
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="12"/>
+            </svg>
+          </div>
+          <div><h2>Technische Anforderungen</h2><p class="sub">Hosting, Funktionen und technische W&uuml;nsche.</p></div>
+        </div>
         <div class="fields two">
           <div><label>Domain bereits vorhanden?</label><select id="tech_domain"><option></option><option>ja</option><option>nein, muss registriert werden</option></select></div>
-          <div><label>Cookie-Consent / DSGVO-Banner gewünscht?</label><select id="tech_cookie"><option></option><option>ja</option><option>nein</option></select></div>
-          <div><label>Google Analytics / Tracking gewünscht?</label><select id="tech_analytics"><option></option><option>ja</option><option>nein</option><option>eventuell</option></select></div>
-          <div><label>Mehrsprachigkeit gewünscht?</label><select id="tech_sprachen"><option></option><option>nein, nur Deutsch</option><option>ja, Deutsch + Englisch</option><option>ja, mehrere Sprachen</option></select></div>
-          <div><label>Besondere Funktionen gewünscht</label><textarea id="tech_funktionen" placeholder="z.B. Bildergalerie, Preisrechner, Buchungssystem"></textarea></div>
+          <div><label>Cookie-Consent / DSGVO-Banner gew&uuml;nscht?</label><select id="tech_cookie"><option></option><option>ja</option><option>nein</option></select></div>
+          <div><label>Google Analytics / Tracking gew&uuml;nscht?</label><select id="tech_analytics"><option></option><option>ja</option><option>nein</option><option>eventuell</option></select></div>
+          <div><label>Mehrsprachigkeit gew&uuml;nscht?</label><select id="tech_sprachen"><option></option><option>nein, nur Deutsch</option><option>ja, Deutsch + Englisch</option><option>ja, mehrere Sprachen</option></select></div>
+          <div><label>Besondere Funktionen gew&uuml;nscht</label><textarea id="tech_funktionen" placeholder="z.B. Bildergalerie, Preisrechner, Bewertungsanzeige"></textarea></div>
         </div>
       </section>
 
       <!-- 13. Rechtliches -->
-      <section class="card">
-        <div class="section-title"><div class="num">13</div><div><h2>Rechtliches</h2><p class="sub">Pflichtangaben und rechtliche Hinweise.</p></div></div>
+      <section class="card" data-step="13" id="step-13">
+        <div class="section-title">
+          <div class="num">
+            13
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="13"/>
+            </svg>
+          </div>
+          <div><h2>Rechtliches</h2><p class="sub">Pflichtangaben und rechtliche Hinweise.</p></div>
+        </div>
         <div class="fields two">
           <div><label>Impressumsdaten vorhanden?</label><select id="recht_impressum"><option></option><option>ja</option><option>nein</option></select></div>
           <div><label>Datenschutzhinweise vorhanden?</label><select id="recht_datenschutz"><option></option><option>ja</option><option>nein</option></select></div>
-          <div><label>Handelsregisterdaten, USt-IdNr. etc.</label><textarea id="recht_pflicht"></textarea></div>
-          <div><label>Sonstige rechtliche Hinweise</label><textarea id="recht_hinweise"></textarea></div>
+          <div><label>Handelsregisterdaten, USt-IdNr. etc.</label><textarea id="recht_pflicht" placeholder="z.B. HRB 12345, USt-IdNr. DE123456789"></textarea></div>
+          <div><label>Sonstige rechtliche Hinweise</label><textarea id="recht_hinweise" placeholder="z.B. Branchenspezifische Auflagen, Versicherungsnachweis"></textarea></div>
         </div>
       </section>
 
-      <!-- 14. Budget & Zeitplan (NEU) -->
-      <section class="card">
-        <div class="section-title"><div class="num">14</div><div><h2>Budget & Zeitplan</h2><p class="sub">Für eine realistische Projektplanung.</p></div></div>
+      <!-- 14. Budget & Zeitplan -->
+      <section class="card" data-step="14" id="step-14">
+        <div class="section-title">
+          <div class="num">
+            14
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="14"/>
+            </svg>
+          </div>
+          <div><h2>Budget &amp; Zeitplan</h2><p class="sub">F&uuml;r eine realistische Projektplanung.</p></div>
+        </div>
         <div class="fields two">
-          <div><label>Budget-Rahmen</label><select id="budget"><option></option><option>unter 1.000 €</option><option>1.000 – 2.500 €</option><option>2.500 – 5.000 €</option><option>5.000 – 10.000 €</option><option>über 10.000 €</option><option>möchte ich besprechen</option></select></div>
-          <div><label>Wunsch-Termin für Go-Live</label><input id="timeline" placeholder="z.B. in 4 Wochen, bis Ende Mai"></div>
-          <div><label>Gibt es einen festen Deadline-Grund?</label><textarea id="deadline_grund" placeholder="z.B. Messe, Saisonstart, Geschäftseröffnung"></textarea></div>
-          <div><label>Laufende Betreuung / Wartung gewünscht?</label><select id="wartung"><option></option><option>ja</option><option>nein</option><option>eventuell</option></select></div>
+          <div><label>Budget-Rahmen</label><select id="budget"><option></option><option>unter 1.000 &euro;</option><option>1.000 &ndash; 2.500 &euro;</option><option>2.500 &ndash; 5.000 &euro;</option><option>5.000 &ndash; 10.000 &euro;</option><option>&uuml;ber 10.000 &euro;</option><option>m&ouml;chte ich besprechen</option></select></div>
+          <div><label>Wunsch-Termin f&uuml;r Go-Live</label><input id="timeline" placeholder="z.B. In 4 Wochen, bis Ende Mai 2026"></div>
+          <div><label>Gibt es einen festen Deadline-Grund?</label><textarea id="deadline_grund" placeholder="z.B. Messe im Juni, Saisonstart"></textarea></div>
+          <div><label>Laufende Betreuung / Wartung gew&uuml;nscht?</label><select id="wartung"><option></option><option>ja</option><option>nein</option><option>eventuell</option></select></div>
         </div>
       </section>
 
       <!-- 15. Checkliste -->
-      <section class="card">
-        <div class="section-title"><div class="num">15</div><div><h2>Abschließende Checkliste</h2><p class="sub">Wird mit in die TXT-Datei übernommen.</p></div></div>
+      <section class="card" data-step="15" id="step-15">
+        <div class="section-title">
+          <div class="num">
+            15
+            <svg class="completion-ring" viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="16"/>
+              <circle class="ring-fill" cx="18" cy="18" r="16" data-step="15"/>
+            </svg>
+          </div>
+          <div><h2>Abschlie&szlig;ende Checkliste</h2><p class="sub">Wird mit in die TXT-Datei &uuml;bernommen.</p></div>
+        </div>
         <div class="checklist">
-          <label class="check"><input type="checkbox" id="chk1"> Kontaktangaben vollständig</label>
+          <label class="check"><input type="checkbox" id="chk1"> Kontaktangaben vollst&auml;ndig</label>
           <label class="check"><input type="checkbox" id="chk2"> Zielgruppe definiert</label>
-          <label class="check"><input type="checkbox" id="chk3"> Leistungen vollständig</label>
+          <label class="check"><input type="checkbox" id="chk3"> Leistungen vollst&auml;ndig</label>
           <label class="check"><input type="checkbox" id="chk4"> Einsatzgebiet genannt</label>
-          <label class="check"><input type="checkbox" id="chk5"> Google Business Profil angegeben</label>
+          <label class="check"><input type="checkbox" id="chk5"> <span class="tip" data-tip="Ihr Unternehmensprofil bei Google Maps mit Bewertungen und Kontaktdaten">Google Business Profil</span> angegeben</label>
           <label class="check"><input type="checkbox" id="chk6"> Social-Media-Profile angegeben</label>
           <label class="check"><input type="checkbox" id="chk7"> Branding / Farben festgelegt</label>
           <label class="check"><input type="checkbox" id="chk8"> Bilder / Logo / Icons vorbereitet</label>
-          <label class="check"><input type="checkbox" id="chk9"> Rechte an Bildern bestätigt</label>
-          <label class="check"><input type="checkbox" id="chk10"> FAQ / Kundenfragen ergänzt</label>
-          <label class="check"><input type="checkbox" id="chk11"> Rechtliche Angaben ergänzt</label>
-          <label class="check"><input type="checkbox" id="chk12"> Budget & Zeitplan besprochen</label>
+          <label class="check"><input type="checkbox" id="chk9"> Rechte an Bildern best&auml;tigt</label>
+          <label class="check"><input type="checkbox" id="chk10"> FAQ / Kundenfragen erg&auml;nzt</label>
+          <label class="check"><input type="checkbox" id="chk11"> Rechtliche Angaben erg&auml;nzt</label>
+          <label class="check"><input type="checkbox" id="chk12"> Budget &amp; Zeitplan besprochen</label>
         </div>
 
         <div class="actions" style="margin-top:20px">
@@ -627,7 +1000,15 @@
         </div>
       </section>
     </form>
+
     <div class="footer-space"></div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="nav-bar" id="cardNav">
+    <button class="nav-btn prev" id="prevBtn" onclick="prevStep()">Zur&uuml;ck</button>
+    <span class="step-label" id="navLabel">Schritt 1 von 15</span>
+    <button class="nav-btn next" id="nextBtn" onclick="nextStep()">Weiter</button>
   </div>
 
   <script>
@@ -830,6 +1211,29 @@
             accent: hslToHex(h, Math.min(s + 25, 90), 42)
           });
           break;
+
+        case 'industry':
+          palettes.push(
+            { label: 'Handwerk Classic', desc: 'Solide, vertrauenswürdig', primary: '#1e3a5f', secondary: '#f0f4f8', accent: '#e07b38' },
+            { label: 'Handwerk Modern', desc: 'Frisch, zeitgemäß', primary: '#2d4a3e', secondary: '#f5f7f6', accent: '#d4a03c' },
+            { label: 'IT & Digital', desc: 'Technisch, innovativ', primary: '#0f172a', secondary: '#f1f5f9', accent: '#06b6d4' },
+            { label: 'Startup Tech', desc: 'Jung, dynamisch', primary: '#1e1b4b', secondary: '#f5f3ff', accent: '#8b5cf6' },
+            { label: 'Gastronomie Warm', desc: 'Einladend, appetitlich', primary: '#7f1d1d', secondary: '#fef7f0', accent: '#ea580c' },
+            { label: 'Café & Bistro', desc: 'Gemütlich, natürlich', primary: '#451a03', secondary: '#fffbeb', accent: '#b45309' },
+            { label: 'Gesundheit & Pflege', desc: 'Beruhigend, sauber', primary: '#065f46', secondary: '#f0fdf4', accent: '#059669' },
+            { label: 'Arztpraxis', desc: 'Steril, professionell', primary: '#1e40af', secondary: '#eff6ff', accent: '#2563eb' },
+            { label: 'Immobilien', desc: 'Premium, seriös', primary: '#1c1917', secondary: '#fafaf9', accent: '#b8860b' },
+            { label: 'Beauty & Wellness', desc: 'Elegant, feminin', primary: '#4a1942', secondary: '#fdf2f8', accent: '#db2777' },
+            { label: 'Rechtsanwalt', desc: 'Seriös, vertrauensvoll', primary: '#1a1a2e', secondary: '#f8f9fa', accent: '#8b6914' },
+            { label: 'Reinigung & Service', desc: 'Frisch, sauber', primary: '#0c4a6e', secondary: '#f0f9ff', accent: '#0ea5e9' },
+            { label: 'Fitness & Sport', desc: 'Energetisch, stark', primary: '#18181b', secondary: '#f4f4f5', accent: '#ef4444' },
+            { label: 'Bildung & Coaching', desc: 'Warm, einladend', primary: '#3730a3', secondary: '#eef2ff', accent: '#f59e0b' },
+            { label: 'Fotografie & Kreativ', desc: 'Minimalistisch, stilvoll', primary: '#171717', secondary: '#fafafa', accent: '#a3a3a3' },
+            { label: 'Garten & Landschaft', desc: 'Natürlich, grün', primary: '#14532d', secondary: '#f0fdf4', accent: '#84cc16' },
+            { label: 'Automobil', desc: 'Kraftvoll, maskulin', primary: '#1c1917', secondary: '#f5f5f4', accent: '#dc2626' },
+            { label: 'Hochzeit & Events', desc: 'Romantisch, edel', primary: '#44403c', secondary: '#faf5f0', accent: '#c49a6c' }
+          );
+          break;
       }
       return palettes;
     }
@@ -954,21 +1358,140 @@
     // Update preview when firmenname changes
     document.getElementById('firmenname').addEventListener('input', updatePreview);
 
-    // ========== Progress Bar ==========
-    function updateProgress() {
-      const inputs = document.querySelectorAll('#qform input:not([type="hidden"]):not([type="checkbox"]):not([type="color"]), #qform textarea, #qform select');
+    // ========== Wizard Navigation ==========
+    let currentStep = 0;
+    const totalSteps = 15;
+
+    function startQuiz() {
+      document.querySelector('.hero').style.display = 'none';
+      document.getElementById('cardNav').style.display = 'flex';
+      document.getElementById('stepsWrap').style.display = 'block';
+      currentStep = 1;
+      showStep(1);
+    }
+
+    function showStep(step) {
+      // Hide all cards
+      document.querySelectorAll('.card').forEach(c => {
+        c.classList.remove('active');
+        c.style.display = 'none';
+      });
+      // Show target card with animation
+      const card = document.getElementById('step-' + step);
+      if (card) {
+        card.style.display = 'block';
+        // Trigger reflow for animation
+        card.offsetHeight;
+        card.classList.add('active');
+      }
+      // Update step dots
+      document.querySelectorAll('.step-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i + 1 === step);
+      });
+      // Update nav
+      currentStep = step;
+      updateNav();
+      updateCompletionRings();
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextStep() {
+      if (currentStep >= totalSteps) {
+        downloadTxt();
+        return;
+      }
+      const card = document.getElementById('step-' + currentStep);
+      if (card) {
+        card.classList.add('leaving');
+        setTimeout(() => {
+          card.classList.remove('leaving', 'active');
+          card.style.display = 'none';
+          showStep(currentStep + 1);
+        }, 350);
+      }
+    }
+
+    function prevStep() {
+      if (currentStep <= 1) return;
+      showStep(currentStep - 1);
+    }
+
+    function goToStep(step) {
+      if (step >= 1 && step <= totalSteps) {
+        showStep(step);
+      }
+    }
+
+    function updateNav() {
+      const prev = document.getElementById('prevBtn');
+      const next = document.getElementById('nextBtn');
+      const label = document.getElementById('navLabel');
+
+      prev.style.visibility = currentStep <= 1 ? 'hidden' : 'visible';
+      label.textContent = 'Schritt ' + currentStep + ' von ' + totalSteps;
+
+      if (currentStep >= totalSteps) {
+        next.textContent = 'TXT herunterladen';
+        next.classList.add('download');
+      } else {
+        next.textContent = 'Weiter';
+        next.classList.remove('download');
+      }
+    }
+
+    // ========== Card Completion Tracking ==========
+    function getCardCompletion(step) {
+      const card = document.getElementById('step-' + step);
+      if (!card) return 0;
+      const inputs = card.querySelectorAll('input:not([type="hidden"]):not([type="checkbox"]):not([type="color"]), textarea, select');
       let filled = 0;
       inputs.forEach(el => {
-        if (el.type === 'checkbox') return;
         if (el.value && el.value.trim()) filled++;
       });
-      const pct = Math.round((filled / inputs.length) * 100);
+      return inputs.length ? filled / inputs.length : 0;
+    }
+
+    function updateCompletionRings() {
+      for (let i = 1; i <= totalSteps; i++) {
+        const pct = getCardCompletion(i);
+        const ring = document.querySelector('.ring-fill[data-step="' + i + '"]');
+        if (ring) {
+          const circumference = 2 * Math.PI * 16;
+          ring.style.strokeDasharray = circumference;
+          ring.style.strokeDashoffset = circumference * (1 - pct);
+        }
+        // Update step dot
+        const dot = document.querySelectorAll('.step-dot')[i - 1];
+        if (dot) {
+          dot.classList.toggle('completed', pct > 0.5);
+          if (pct > 0.5 && !dot.dataset.celebrated) {
+            dot.dataset.celebrated = 'true';
+          }
+        }
+      }
+    }
+
+    // ========== Progress Bar ==========
+    function updateProgress() {
+      const allInputs = document.querySelectorAll('#qform input:not([type="hidden"]):not([type="checkbox"]):not([type="color"]), #qform textarea, #qform select');
+      let filled = 0;
+      allInputs.forEach(el => {
+        if (el.value && el.value.trim()) filled++;
+      });
+      const pct = Math.round((filled / allInputs.length) * 100);
       document.getElementById('progressFill').style.width = pct + '%';
       document.getElementById('progressText').textContent = pct + '%';
     }
 
-    document.getElementById('qform').addEventListener('input', updateProgress);
-    document.getElementById('qform').addEventListener('change', updateProgress);
+    document.getElementById('qform').addEventListener('input', () => {
+      updateProgress();
+      updateCompletionRings();
+    });
+    document.getElementById('qform').addEventListener('change', () => {
+      updateProgress();
+      updateCompletionRings();
+    });
 
     // ========== TXT Export ==========
     const map = {
@@ -1162,6 +1685,7 @@
       URL.revokeObjectURL(a.href);
     }
 
+    // ========== Reset ==========
     function resetForm() {
       if (!confirm('Formular wirklich leeren? Alle Eingaben gehen verloren.')) return;
       document.getElementById('qform').reset();
@@ -1173,8 +1697,9 @@
       setColor('Accent', '#e07b38');
       updatePreview();
       updateProgress();
+      updateCompletionRings();
       renderPalettes();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showStep(1);
     }
 
     // ========== Init ==========
@@ -1184,6 +1709,12 @@
     renderPalettes();
     updatePreview();
     updateProgress();
+
+    // Hide wizard elements initially
+    document.getElementById('cardNav').style.display = 'none';
+    document.getElementById('stepsWrap').style.display = 'none';
+    // Hide all cards initially
+    document.querySelectorAll('.card').forEach(c => { c.style.display = 'none'; });
   </script>
 </body>
 </html>
